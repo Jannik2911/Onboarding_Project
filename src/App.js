@@ -6,11 +6,7 @@ import Button from '@mui/material/Button';
 function App() {
   return (
     <div className="App">
-      <head>
-       <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </head>
-
-      <Button variant="contained">Hello world1</Button>
+      <Button variant="contained" onClick={(console.log("test"))}>Hello world1</Button>
     </div>
   );
 }
