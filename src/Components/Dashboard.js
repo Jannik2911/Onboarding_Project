@@ -20,6 +20,7 @@ import Footer from "./Footer";
 import DateCalendarReferenceDate from "./Calendar";
 import MainListItems from "../Helper/listItems";
 import CheckList from "./CheckList";
+import SearchComponent from "./SearchComponent";
 
 const drawerWidth = 240;
 
@@ -178,7 +179,7 @@ export default function Dashboard() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <h2>Mitarbeiter-Schnellsuche</h2>
+                  <SearchComponent />
                 </Paper>
               </Grid>
             </Grid>
