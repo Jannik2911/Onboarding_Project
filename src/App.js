@@ -10,6 +10,10 @@ import UserChannel from "./Components/UserChannel";
 import Tasks from "./Components/Tasks";
 import EmployeeList from "./Components/EmployeeList";
 
+/*
+npx json-server --watch ./src/helper/db.json --port 8000
+*/
+
 function App() {
   return (
     <div className="App">

@@ -96,7 +96,7 @@ const SearchComponent = () => {
           width: "100%",
           bgcolor: "background.paper",
           textAlign: "center",
-          maxHeight: 400, // Set a fixed height for scrollability
+          maxHeight: 290, // Set a fixed height for scrollability
           overflow: "auto", // Enable scrolling
           margin: "auto", // Center the list horizontally
         }}
