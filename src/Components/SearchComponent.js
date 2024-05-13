@@ -9,6 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CommentIcon from "@mui/icons-material/Comment";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Divider from "@mui/material/Divider";
 
 const style = {
   position: "absolute",
@@ -86,33 +87,46 @@ const SearchComponent = () => {
         }}
       />
       <List
-        sx={
-          ({ width: "100%", maxWidth: 360, bgcolor: "background.paper" },
-          { textAlign: "center" })
-        }
+        sx={{
+          width: "100%",
+          bgcolor: "background.paper",
+          textAlign: "center",
+          maxHeight: 400, // Set a fixed height for scrollability
+          overflow: "auto", // Enable scrolling
+          margin: "auto", // Center the list horizontally
+        }}
       >
         {filteredArr?.map((value) => (
-          <ListItem
+          <Box
             key={value.id}
-            disableGutters
-            onClick={() => handleItemClick(value)}
-            onMouseEnter={() => setHoveredItem(value)}
-            onMouseLeave={() => setHoveredItem(null)}
-            sx={selectedItem === value ? { border: "1px solid grey" } : {}}
-            style={{
-              boxShadow:
-                hoveredItem === value
-                  ? "0px 2px 4px rgba(0, 0, 0, 0.1)"
-                  : "none",
+            sx={{
+              width: "100%", // Inherit the width of the list container
+              border: "1px solid grey",
+              borderRadius: 2,
+              mb: 1,
+              overflow: "auto",
             }}
-            secondaryAction={
-              <IconButton aria-label="comment" onClick={handleOpen}>
-                <CommentIcon />
-              </IconButton>
-            }
           >
-            <ListItemText primary={`${value.name}`} />
-          </ListItem>
+            <ListItem
+              onClick={() => handleItemClick(value)}
+              onMouseEnter={() => setHoveredItem(value)}
+              onMouseLeave={() => setHoveredItem(null)}
+              sx={selectedItem === value ? { border: "1px solid grey" } : {}}
+              style={{
+                boxShadow:
+                  hoveredItem === value
+                    ? "0px 2px 4px rgba(0, 0, 0, 0.1)"
+                    : "none",
+              }}
+              secondaryAction={
+                <IconButton aria-label="comment" onClick={handleOpen}>
+                  <CommentIcon />
+                </IconButton>
+              }
+            >
+              <ListItemText primary={`${value.name}`} />
+            </ListItem>
+          </Box>
         ))}
       </List>
       <Modal

@@ -218,10 +218,10 @@ export default function Dashboard() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 350,
+                    height: 300,
                   }}
                 >
-                  <h2>Anstehende Aufgaben</h2>
+                  <Typography variant="body1">Anstehende Aufgaben</Typography>
                   <CheckList />
                 </Paper>
               </Grid>
@@ -232,7 +232,7 @@ export default function Dashboard() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 350,
+                    height: 300,
                   }}
                 >
                   <DateCalendarReferenceDate />
