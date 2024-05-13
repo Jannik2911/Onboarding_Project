@@ -11,7 +11,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import CommentIcon from "@mui/icons-material/Comment";
 
 const SearchComponent = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(0);
+  const arr = [1, 2, 3, 4, 5, 6, 7];
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -41,7 +42,7 @@ const SearchComponent = () => {
           { textAlign: "center" })
         }
       >
-        {[1, 2, 3].map((value) => (
+        {arr.map((value) => (
           <ListItem
             key={value}
             disableGutters
