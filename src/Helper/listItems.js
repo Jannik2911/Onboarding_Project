@@ -27,7 +27,7 @@ export default function MainListItems() {
         <ListItemIcon>
           <ChecklistOutlinedIcon />
         </ListItemIcon>
-        <ListItemText primary="Aufgaben" />
+        <ListItemText primary="Aufgaben" onClick={() => open("/tasks")} />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
@@ -45,6 +45,15 @@ export default function MainListItems() {
         <ListItemText
           primary="Mitarbeiterverzeichnis"
           onClick={() => open("/mitarbeiterverzeichnis")}
+        />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <BadgeOutlinedIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary="Terminmanager"
+          onClick={() => open("/terminmanager")}
         />
       </ListItemButton>
     </React.Fragment>

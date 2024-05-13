@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Mitarbeiterverwaltung from "./Components/Mitarbeiterverwaltung";
 import Dashboard from "./Components/Dashboard";
 import UserChannel from "./Components/UserChannel";
-import CalendarPopup from "./Components/CalendarPopup";
+import Tasks from "./Components/Tasks";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="/calendarpopup" element={<CalendarPopup />} />
+          <Route exact path="/tasks" element={<Tasks />} />
           <Route exact path="/userchannel" element={<UserChannel />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
