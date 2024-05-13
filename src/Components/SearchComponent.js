@@ -10,6 +10,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
+import { Button } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -38,6 +39,10 @@ const SearchComponent = () => {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleActionClick = () => {
+    console.log("Eregnis erstellen");
   };
 
   useEffect(() => {
@@ -137,6 +142,9 @@ const SearchComponent = () => {
       >
         <Box sx={{ ...style, width: 400 }}>
           <h2 id="parent-modal-title">Aktion auswählen</h2>
+          <Button variant="contained" onClick={handleActionClick}>
+            Ereignis erstellen
+          </Button>
           <p id="parent-modal-description">
             {selectedItem?.name + ", ID: " + selectedItem?.id}
           </p>

@@ -31,43 +31,48 @@ export default function CheckList() {
         const labelId = `checkbox-list-label-${value}`;
 
         return (
-          <Box
-            sx={{
-              width: "100%", // Inherit the width of the list container
-              border: "1px solid grey",
-              borderRadius: 2,
-              mb: 1,
-              overflow: "auto",
-              maxHeight: 300,
-            }}
-          >
-            <ListItem
-              key={value}
-              secondaryAction={
-                <IconButton edge="end" aria-label="comments">
-                  <CommentIcon />
-                </IconButton>
-              }
-              disablePadding
+          <div key={value}>
+            <Box
+              sx={{
+                width: "100%", // Inherit the width of the list container
+                border: "1px solid grey",
+                borderRadius: 2,
+                mb: 1,
+                overflow: "auto",
+                maxHeight: 300,
+              }}
             >
-              <ListItemButton
-                role={undefined}
-                onClick={handleToggle(value)}
-                dense
+              <ListItem
+                key={value}
+                secondaryAction={
+                  <IconButton edge="end" aria-label="comments">
+                    <CommentIcon />
+                  </IconButton>
+                }
+                disablePadding
               >
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={checked.indexOf(value) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ "aria-labelledby": labelId }}
+                <ListItemButton
+                  role={undefined}
+                  onClick={handleToggle(value)}
+                  dense
+                >
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      checked={checked.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ "aria-labelledby": labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    id={labelId}
+                    primary={`Line item ${value + 1}`}
                   />
-                </ListItemIcon>
-                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-              </ListItemButton>
-            </ListItem>
-          </Box>
+                </ListItemButton>
+              </ListItem>
+            </Box>
+          </div>
         );
       })}
     </List>
