@@ -13,7 +13,6 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -21,6 +20,10 @@ import Footer from "./Footer";
 import DateCalendarReferenceDate from "./Calendar";
 import MainListItems from "../Helper/listItems";
 import CheckList from "./CheckList";
+import SearchComponent from "./SearchComponent";
+import Popover from "@mui/material/Popover";
+import { useState, useEffect } from "react";
+import CommentIcon from "@mui/icons-material/Comment";
 
 const drawerWidth = 240;
 
@@ -73,13 +76,41 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
+  const [arr, setArr] = React.useState([]);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleNotificationsClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationsClose = () => {
+    setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:8000/notifications")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setArr(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const notifcationsOpen = Boolean(anchorEl);
+  const id = notifcationsOpen ? "simple-popover" : undefined;
+
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", maxHeight: "100vh" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
@@ -108,11 +139,42 @@ export default function Dashboard() {
             >
               Onboarding-Tool Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+            <IconButton color="inherit" onClick={handleNotificationsClick}>
+              <Badge badgeContent={arr.length} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Popover
+              id={id}
+              open={notifcationsOpen}
+              anchorEl={anchorEl}
+              onClose={handleNotificationsClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <Box p={2}>
+                <div key="notifications-heading">
+                  <Typography variant="h6" fontWeight="bold">
+                    Sie haben {arr.length} Benachrichtigungen
+                  </Typography>
+                  <Divider />
+                </div>
+                {arr?.map((value) => (
+                  <div key={value.id}>
+                    <Typography variant="body1">
+                      <CommentIcon /> {`${" " + value.text}`}
+                    </Typography>
+                    {value.id < arr.length && <Divider />}
+                  </div>
+                ))}
+              </Box>
+            </Popover>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -147,7 +209,7 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={12} lg={6}>
@@ -156,10 +218,10 @@ export default function Dashboard() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 350,
+                    height: 300,
                   }}
                 >
-                  <h2>Anstehende Aufgaben</h2>
+                  <Typography variant="body1">Anstehende Aufgaben</Typography>
                   <CheckList />
                 </Paper>
               </Grid>
@@ -170,7 +232,7 @@ export default function Dashboard() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 350,
+                    height: 300,
                   }}
                 >
                   <DateCalendarReferenceDate />
@@ -179,7 +241,7 @@ export default function Dashboard() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <h2>Mitarbeiter-Schnellsuche</h2>
+                  <SearchComponent />
                 </Paper>
               </Grid>
             </Grid>

@@ -1,7 +1,42 @@
 {
-    "user":
-    {
-        "name": "Tester",
-        "password": "test"
-    }
+    "names": [
+      { "id": 1, "name": "John Doe" },
+      { "id": 2, "name": "Alice Smith" },
+      { "id": 3, "name": "Bob Johnson" },
+      { "id": 4, "name": "Emma Davis" },
+      { "id": 5, "name": "Michael Wilson" },
+      { "id": 6, "name": "Sarah Brown" },
+      { "id": 7, "name": "David Taylor" },
+      { "id": 8, "name": "Emily Anderson" },
+      { "id": 9, "name": "James Martinez" },
+      { "id": 10, "name": "Olivia Jones" },
+      { "id": 11, "name": "William Miller" },
+      { "id": 12, "name": "Sophia Garcia" },
+      { "id": 13, "name": "Benjamin Hernandez" },
+      { "id": 14, "name": "Isabella Lopez" },
+      { "id": 15, "name": "Jacob Nelson" },
+      { "id": 16, "name": "Charlotte Gonzalez" },
+      { "id": 17, "name": "Liam Perez" },
+      { "id": 18, "name": "Ava Rodriguez" },
+      { "id": 19, "name": "Ethan Rivera" },
+      { "id": 20, "name": "Mia Campbell" },
+      { "id": 21, "name": "Noah Martinez" },
+      { "id": 22, "name": "Grace Kelly" },
+      { "id": 23, "name": "Alexander Howard" },
+      { "id": 24, "name": "Lily Mitchell" },
+      { "id": 25, "name": "Lucas Turner" },
+      { "id": 26, "name": "Mason Collins" },
+      { "id": 27, "name": "Harper Price" },
+      { "id": 28, "name": "Evelyn Cook" },
+      { "id": 29, "name": "Elijah Bell" },
+      { "id": 30, "name": "Ella Carter" }
+    ],
+    "notifications":[
+    { "id": 1, "text": "This is an example notification" },
+    { "id": 2, "text": "This is an example notification2" },
+    { "id": 3, "text": "This is an example notification3" },
+    { "id": 4, "text": "This is an example notification4" },
+    { "id": 5, "text": "This is an example notification5" }
+    ]
 }
+  
