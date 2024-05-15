@@ -1,6 +1,6 @@
 import Layout from "./Layout";
 
-const EmployeeList = () => {
+const Terminmanager = () => {
   return (
     <Layout>
       <div></div>
@@ -8,4 +8,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default Terminmanager;

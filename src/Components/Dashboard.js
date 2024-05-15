@@ -122,10 +122,18 @@ export default function Dashboard() {
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
+                  width: 1120,
                   height: 300,
                 }}
               >
-                <Typography variant="body1">Anstehende Aufgaben</Typography>
+                <Typography
+                  component="h1"
+                  variant="h6"
+                  color="inherit"
+                  sx={{ flexGrow: 1 }}
+                >
+                  Anstehende Aufgaben
+                </Typography>
                 <CheckList />
               </Paper>
             </Grid>
@@ -136,7 +144,9 @@ export default function Dashboard() {
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
+                  width: 350,
                   height: 300,
+                  ml: "380px",
                 }}
               >
                 <DateCalendarReferenceDate />

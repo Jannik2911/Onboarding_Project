@@ -7,6 +7,7 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import Layout from "./Layout";
 
 const useStyles = styled({
   calendarContainer: {
@@ -111,7 +112,12 @@ export default function DateCalendarServerRequest() {
         <DateCalendar
           loading={isLoading}
           onMonthChange={handleMonthChange}
-          sx={{ height: 300 }}
+          sx={{
+            height: 300,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
           renderLoading={() => <DayCalendarSkeleton />}
           slots={{
             day: ServerDay,

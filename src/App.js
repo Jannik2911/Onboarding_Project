@@ -11,6 +11,7 @@ import Tasks from "./Components/Tasks";
 import EmployeeList from "./Components/EmployeeList";
 import Layout from "./Components/Layout";
 import DashboardComponent from "./Components/Dashboard";
+import Terminmanager from "./Components/Terminmanager";
 
 /*
 npx json-server --watch ./src/helper/db.json --port 8000
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/userchannel" element={<UserChannel />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
+          <Route exact path="/terminmanager" element={<Terminmanager />} />
           <Route
             exact
             path="/mitarbeiterverwaltung"

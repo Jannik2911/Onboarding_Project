@@ -9,8 +9,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import CommentIcon from "@mui/icons-material/Comment";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
 import { Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const style = {
   position: "absolute",
@@ -75,14 +75,22 @@ const SearchComponent = () => {
 
   return (
     <div>
-      <h2>Mitarbeiter-Schnellsuche</h2>
+      <Typography
+        component="h1"
+        variant="h6"
+        color="inherit"
+        noWrap
+        sx={{ flexGrow: 1 }}
+      >
+        Mitarbeiter-Schnellsuche
+      </Typography>
       <TextField
         id="search"
         type="search"
         label="Suche"
         value={searchTerm}
         onChange={handleChange}
-        sx={({ width: 600 }, { textAlign: "center" })}
+        sx={({ width: 500 }, { textAlign: "center" })}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

@@ -40,11 +40,11 @@ export default function MainListItems() {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <BadgeOutlinedIcon onClick={() => open("/mitarbeiterverzeichnis")} />
+          <BadgeOutlinedIcon onClick={() => open("/employeelist")} />
         </ListItemIcon>
         <ListItemText
           primary="Mitarbeiterverzeichnis"
-          onClick={() => open("/mitarbeiterverzeichnis")}
+          onClick={() => open("/employeelist")}
         />
       </ListItemButton>
       <ListItemButton>

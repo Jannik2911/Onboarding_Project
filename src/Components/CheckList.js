@@ -26,7 +26,7 @@ export default function CheckList() {
   };
 
   return (
-    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <List sx={{ width: "100%", height: 250, bgcolor: "background.paper" }}>
       {[0, 1, 2, 3].map((value) => {
         const labelId = `checkbox-list-label-${value}`;
 
@@ -39,7 +39,7 @@ export default function CheckList() {
                 borderRadius: 2,
                 mb: 1,
                 overflow: "auto",
-                maxHeight: 300,
+                maxHeight: 250,
               }}
             >
               <ListItem
