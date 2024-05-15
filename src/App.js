@@ -9,6 +9,8 @@ import Dashboard from "./Components/Dashboard";
 import UserChannel from "./Components/UserChannel";
 import Tasks from "./Components/Tasks";
 import EmployeeList from "./Components/EmployeeList";
+import Layout from "./Components/Layout";
+import DashboardComponent from "./Components/Dashboard";
 
 /*
 npx json-server --watch ./src/helper/db.json --port 8000
@@ -20,6 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
+          <Route exact path="/test" element={<Dashboard />} />
           <Route exact path="/tasks" element={<Tasks />} />
           <Route exact path="/employeelist" element={<EmployeeList />} />
           <Route exact path="/userchannel" element={<UserChannel />} />
