@@ -7,6 +7,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import { useNavigate } from "react-router-dom";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 export default function MainListItems() {
   let navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function MainListItems() {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <BadgeOutlinedIcon onClick={() => open("/terminmanager")} />
+          <CalendarMonthIcon onClick={() => open("/terminmanager")} />
         </ListItemIcon>
         <ListItemText
           primary="Terminmanager"

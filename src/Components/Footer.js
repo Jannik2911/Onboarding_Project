@@ -16,9 +16,6 @@ function Copyright() {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 export default function Footer() {
   return (
     <Box
@@ -34,6 +31,8 @@ export default function Footer() {
           py: 3,
           px: 2,
           mt: "auto",
+          color: "inherit",
+          backgroundColor: "inherit",
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
               ? theme.palette.grey[200]
