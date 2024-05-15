@@ -12,12 +12,17 @@ import EmployeeList from "./Components/EmployeeList";
 import Layout from "./Components/Layout";
 import DashboardComponent from "./Components/Dashboard";
 import Terminmanager from "./Components/Terminmanager";
+import { useEffect } from "react";
 
 /*
 npx json-server --watch ./src/helper/db.json --port 8000
 */
 
 function App() {
+  useEffect(() => {
+    document.title = "Onboarding-Tool";
+  });
+
   return (
     <div className="App">
       <BrowserRouter>

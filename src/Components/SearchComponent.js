@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CommentIcon from "@mui/icons-material/Comment";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Button } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 const style = {
@@ -42,6 +42,10 @@ const SearchComponent = () => {
   };
 
   const handleActionClick = () => {
+    console.log("Eregnis erstellen");
+  };
+
+  const handleTaskClick = () => {
     console.log("Eregnis erstellen");
   };
 
@@ -152,6 +156,13 @@ const SearchComponent = () => {
           <h2 id="parent-modal-title">Aktion auswählen</h2>
           <Button variant="contained" onClick={handleActionClick}>
             Ereignis erstellen
+          </Button>
+          <Button
+            sx={{ mt: "15px" }}
+            variant="contained"
+            onClick={handleTaskClick}
+          >
+            Aufgabe hinzufügen
           </Button>
           <p id="parent-modal-description">
             {selectedItem?.name + ", ID: " + selectedItem?.id}

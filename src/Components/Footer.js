@@ -9,7 +9,7 @@ import Link from "@mui/material/Link";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
-      {"Copyright © "}
+      {"Copyright © Projektgruppe DRV-Westfalen"}
       <Link color="inherit" href="/"></Link> {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -22,6 +22,10 @@ export default function Footer() {
       sx={{
         display: "flex",
         flexDirection: "column",
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
       }}
     >
       <CssBaseline />
