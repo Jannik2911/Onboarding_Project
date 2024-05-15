@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Footer from "./Footer";
 import DateCalendarReferenceDate from "./Calendar";
 import CheckList from "./CheckList";
 import SearchComponent from "./SearchComponent";
@@ -100,61 +99,58 @@ export default function Dashboard() {
   const id = notifcationsOpen ? "simple-popover" : undefined;
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Layout>
-        <CssBaseline />
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
-        >
-          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={12} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 300,
-                  }}
-                >
-                  <Typography variant="body1">Anstehende Aufgaben</Typography>
-                  <CheckList />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={12} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 300,
-                  }}
-                >
-                  <DateCalendarReferenceDate />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <SearchComponent />
-                </Paper>
-              </Grid>
+    <Layout>
+      <CssBaseline />
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: "100vh",
+          mt: "50px",
+        }}
+      >
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={12} lg={6}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: 300,
+                }}
+              >
+                <Typography variant="body1">Anstehende Aufgaben</Typography>
+                <CheckList />
+              </Paper>
             </Grid>
-            <Footer />
-          </Container>
-        </Box>
-      </Layout>
-    </ThemeProvider>
+            {/* Recent Deposits */}
+            <Grid item xs={12} md={12} lg={6}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: 300,
+                }}
+              >
+                <DateCalendarReferenceDate />
+              </Paper>
+            </Grid>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                <SearchComponent />
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </Layout>
   );
 }

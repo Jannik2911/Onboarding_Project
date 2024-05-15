@@ -60,7 +60,7 @@ function TodoList() {
 
   return (
     <Layout>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Box
           sx={{
             mt: 4,
@@ -70,9 +70,10 @@ function TodoList() {
             boxShadow: 3,
             backgroundColor: "primary.main",
             color: "white",
+            mt: "80px",
           }}
         >
-          <Typography variant="h4" component="h1" gutterBottom align="center">
+          <Typography variant="h6" component="h1" gutterBottom align="center">
             Aufgaben für neue Mitarbeiter
           </Typography>
         </Box>
