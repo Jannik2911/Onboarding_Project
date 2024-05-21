@@ -2,35 +2,39 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, List, ListItem, ListItemText, IconButton } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import Layout from "./Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Mitarbeiterverwaltung() {
-  const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [fb, setFb] = useState("");
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [fb, setFb] = useState('');
 
-  const [users, setUsers] = useState(() => {
-    const savedUsers = localStorage.getItem("users");
-    return savedUsers ? JSON.parse(savedUsers) : [];
+  const [mitarbeiterListe, setMitarbeiterListe] = useState(() => {
+    const saved = localStorage.getItem("mitarbeiter");
+    return saved ? JSON.parse(saved) : [];
   });
 
-  const addUser = () => {
-    setUsers([
-      ...users,
-      { name: name, lastname: lastname, email: email, fb: fb },
-    ]);
-    setName("");
-    setLastname("");
-    setEmail("");
-    setFb("");
-  };
+  useEffect(() => {
+    localStorage.setItem("mitarbeiter", JSON.stringify(mitarbeiterListe));
+  }, [mitarbeiterListe]);
 
   const handleClick = () => {
-    addUser();
-    console.log(localStorage.getItem("users"));
+    const newMitarbeiter = { name, lastname, email, fb };
+    setMitarbeiterListe([...mitarbeiterListe, newMitarbeiter]);
+    setName('');
+    setLastname('');
+    setEmail('');
+    setFb('');
+  };
+
+  const handleDelete = (index) => {
+    const newList = [...mitarbeiterListe];
+    newList.splice(index, 1);
+    setMitarbeiterListe(newList);
   };
 
   return (
@@ -60,38 +64,62 @@ export default function Mitarbeiterverwaltung() {
                 required
                 id="name"
                 label="Vorname"
-                onChange={(e) => setName(e)}
+                value={name}
+                onChange={e => setName(e.target.value)}
               />
               <TextField
                 sx={{ mb: 1, mr: 1 }}
                 required
                 id="lastname"
                 label="Nachname"
-                onChange={(e) => setLastname(e)}
+                value={lastname}
+                onChange={e => setLastname(e.target.value)}
               />
               <TextField
                 required
                 id="email"
                 label="E-Mail"
-                onChange={(e) => setEmail(e)}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
               <TextField
                 sx={{ mb: 1 }}
                 required
                 id="fb"
-                label="Required"
-                onChange={(e) => setFb(e)}
+                label="Fachbereich"
+                value={fb}
+                onChange={e => setFb(e.target.value)}
               />
             </div>
             <Button
               variant="contained"
-              onClick={() => {
-                handleClick();
-              }}
+              onClick={handleClick}
             >
               Hinzufügen
             </Button>
           </div>
+        </Box>
+        <Box sx={{ p: 2, boxShadow: 3, mb: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Mitarbeiter Liste
+          </Typography>
+          <List>
+            {mitarbeiterListe.map((mitarbeiter, index) => (
+              <ListItem
+                key={index}
+                secondaryAction={
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(index)}>
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              >
+                <ListItemText
+                  primary={`${mitarbeiter.name} ${mitarbeiter.lastname}`}
+                  secondary={`${mitarbeiter.email}, Fachbereich: ${mitarbeiter.fb}`}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Box>
       </Container>
     </Layout>
