@@ -5,12 +5,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import CommentIcon from "@mui/icons-material/Comment";
+import { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function CheckList() {
   const [checked, setChecked] = React.useState([0]);
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -25,56 +27,42 @@ export default function CheckList() {
     setChecked(newChecked);
   };
 
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  useEffect(() => {
+    // Speichern der Aufgaben im localStorage, wenn sich die Tasks ändern
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   return (
     <List sx={{ width: "100%", height: 250, bgcolor: "background.paper" }}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
-
-        return (
-          <div key={value}>
-            <Box
-              sx={{
-                width: "100%", // Inherit the width of the list container
-                border: "1px solid grey",
-                borderRadius: 2,
-                mb: 1,
-                overflow: "auto",
-                maxHeight: 250,
-              }}
-            >
-              <ListItem
-                key={value}
-                secondaryAction={
-                  <IconButton edge="end" aria-label="comments">
-                    <CommentIcon />
-                  </IconButton>
-                }
-                disablePadding
+      {tasks.map((task, index) => (
+        <ListItem
+          key={index}
+          sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
+          style={{
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <ListItemText
+            primary={
+              <span
+                style={{
+                  textDecoration: task.completed ? "line-through" : "none",
+                }}
               >
-                <ListItemButton
-                  role={undefined}
-                  onClick={handleToggle(value)}
-                  dense
-                >
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={checked.indexOf(value) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                      inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    id={labelId}
-                    primary={`Line item ${value + 1}`}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </Box>
-          </div>
-        );
-      })}
+                {task.text}
+              </span>
+            }
+            secondary={
+              task.completed ? `Aufgabe erledigt am ${task.completedAt}` : ""
+            }
+          />
+        </ListItem>
+      ))}
     </List>
   );
 }

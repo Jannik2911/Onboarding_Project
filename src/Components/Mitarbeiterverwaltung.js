@@ -2,81 +2,98 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Layout from "./Layout";
+import { useState } from "react";
 
 export default function Mitarbeiterverwaltung() {
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [fb, setFb] = useState("");
+
+  const [users, setUsers] = useState(() => {
+    const savedUsers = localStorage.getItem("users");
+    return savedUsers ? JSON.parse(savedUsers) : [];
+  });
+
+  const addUser = () => {
+    setUsers([
+      ...users,
+      { name: name, lastname: lastname, email: email, fb: fb },
+    ]);
+    setName("");
+    setLastname("");
+    setEmail("");
+    setFb("");
+  };
+
+  const handleClick = () => {
+    addUser();
+    console.log(localStorage.getItem("users"));
+  };
+
   return (
     <Layout>
-      <div className="mitarbeiter-verwaltung">
-        <h2>Mitarbeiter hinzufügen</h2>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
+      <Container maxWidth="md">
+        <Box
+          sx={{
+            mt: 4,
+            mb: 2,
+            pt: 1,
+            pb: 1,
+            boxShadow: 3,
+            backgroundColor: "primary.main",
+            color: "white",
+            mt: "80px",
+          }}
+        >
+          <Typography variant="h6" component="h1" gutterBottom align="center">
+            Mitarbeiterverwaltung
+          </Typography>
+        </Box>
+        <Box sx={{ mb: 4, p: 3, boxShadow: 3 }}>
+          <div className="mitarbeiter-verwaltung">
             <div>
               <TextField
+                sx={{ mb: 1, mr: 1 }}
                 required
-                id="outlined-required"
+                id="name"
+                label="Vorname"
+                onChange={(e) => setName(e)}
+              />
+              <TextField
+                sx={{ mb: 1, mr: 1 }}
+                required
+                id="lastname"
+                label="Nachname"
+                onChange={(e) => setLastname(e)}
+              />
+              <TextField
+                required
+                id="email"
+                label="E-Mail"
+                onChange={(e) => setEmail(e)}
+              />
+              <TextField
+                sx={{ mb: 1 }}
+                required
+                id="fb"
                 label="Required"
-                defaultValue="Hello World"
-              />
-              <TextField
-                disabled
-                id="outlined-disabled"
-                label="Disabled"
-                defaultValue="Hello World"
-              />
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                type="password"
-                autoComplete="current-password"
-              />
-              <TextField
-                id="outlined-read-only-input"
-                label="Read Only"
-                defaultValue="Hello World"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id="outlined-number"
-                label="Number"
-                type="number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <TextField
-                id="outlined-search"
-                label="Search field"
-                type="search"
-              />
-              <TextField
-                id="outlined-helperText"
-                label="Helper text"
-                defaultValue="Default Value"
-                helperText="Some important text"
+                onChange={(e) => setFb(e)}
               />
             </div>
             <Button
               variant="contained"
               onClick={() => {
-                /*Handle registration*/
+                handleClick();
               }}
             >
               Hinzufügen
             </Button>
-          </Box>
-        </Container>
-      </div>
+          </div>
+        </Box>
+      </Container>
     </Layout>
   );
 }
