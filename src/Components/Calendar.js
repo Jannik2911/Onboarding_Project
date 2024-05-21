@@ -6,7 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
+import { useState, useEffect, useRef } from "react";
 import Layout from "./Layout";
 
 const useStyles = styled({
@@ -16,38 +17,29 @@ const useStyles = styled({
   },
 });
 
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-function fakeFetch(date, { signal }) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.getDate();
-      const daysToHighlight = [1, 2, 3, 4].map(() =>
-        getRandomNumber(1, daysInMonth)
-      );
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException("aborted", "AbortError"));
-    };
-  });
+function hasEvent(events, date) {
+  return events.some(
+    (event) =>
+      dayjs(event.start).isSame(date, "day") ||
+      (dayjs(event.start).isBefore(date, "day") &&
+        dayjs(event.end).isAfter(date, "day"))
+  );
 }
 
 function ServerDay(props) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+  const {
+    highlightedDays = [],
+    day,
+    outsideCurrentMonth,
+    events,
+    ...other
+  } = props;
 
-  const isSelected =
-    !props.outsideCurrentMonth &&
-    highlightedDays.indexOf(props.day.date()) >= 0;
+  const isSelected = !outsideCurrentMonth && hasEvent(events, day);
 
   return (
     <Badge
-      key={props.day.toString()}
+      key={day.toString()}
       overlap="circular"
       badgeContent={isSelected ? "👥" : undefined}
     >
@@ -61,49 +53,27 @@ function ServerDay(props) {
 }
 
 export default function DateCalendarServerRequest() {
-  const requestAbortController = React.useRef(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 20]);
+  const requestAbortController = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [events, setEvents] = useState(() => {
+    const storedEvents = localStorage.getItem("events");
+    return storedEvents ? JSON.parse(storedEvents) : [];
+  });
 
   const classes = useStyles();
 
-  const fetchHighlightedDays = () => {
-    const controller = new AbortController();
-    const date = new Date();
+  useEffect(() => {
+    localStorage.setItem("events", JSON.stringify(events));
+  }, [events]);
 
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== "AbortError") {
-          throw error;
-        }
-      });
-
-    requestAbortController.current = controller;
-  };
-
-  React.useEffect(() => {
-    fetchHighlightedDays();
-    // abort request on unmount
+  useEffect(() => {
     return () => requestAbortController.current?.abort();
   }, []);
 
   const handleMonthChange = (date) => {
     if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
       requestAbortController.current.abort();
     }
-
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
   };
 
   return (
@@ -120,11 +90,11 @@ export default function DateCalendarServerRequest() {
           }}
           renderLoading={() => <DayCalendarSkeleton />}
           slots={{
-            day: ServerDay,
+            day: (props) => <ServerDay {...props} events={events} />,
           }}
           slotProps={{
             day: {
-              highlightedDays,
+              highlightedDays: events.map((event) => dayjs(event.start).date()),
             },
           }}
         />

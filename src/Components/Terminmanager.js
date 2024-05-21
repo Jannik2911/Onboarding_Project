@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import deLocale from "date-fns/locale/de";
-import { Box, TextField, Button } from "@mui/material";
-import { Container } from "@mui/system";
+import { Box, TextField, Button, Container } from "@mui/material";
 
 const locales = {
   de: deLocale,
 };
 
 const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
+  format: (date, formatStr, options) =>
+    format(date, formatStr, { locale: options?.locale }),
+  parse: (dateStr, formatStr, options) =>
+    parse(dateStr, formatStr, new Date(), { locale: options?.locale }),
+  startOfWeek: (date, options) =>
+    startOfWeek(date, { locale: options?.locale }),
+  getDay: (date) => getDay(date),
   locales,
 });
 
@@ -52,6 +54,10 @@ const Terminmanager = () => {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
 
+  useEffect(() => {
+    localStorage.setItem("events", JSON.stringify(events));
+  }, [events]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newEvent = {
@@ -60,7 +66,9 @@ const Terminmanager = () => {
       end: new Date(end),
       allDay: false,
     };
-    setEvents([...events, newEvent]);
+    const updatedEvents = [...events, newEvent];
+    setEvents(updatedEvents);
+    localStorage.setItem("events", JSON.stringify(updatedEvents));
     setTitle("");
     setStart("");
     setEnd("");
@@ -78,7 +86,11 @@ const Terminmanager = () => {
           minHeight: "100vh",
         }}
       >
-        <form onSubmit={handleSubmit} sx={{ alignItems: "center" }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ alignItems: "center" }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -117,7 +129,7 @@ const Terminmanager = () => {
               height: 630,
               border: "1px solid grey",
               borderRadius: 2,
-              align: "center",
+              textAlign: "center",
               overflow: "auto",
               width: "100%",
             }}
@@ -132,7 +144,7 @@ const Terminmanager = () => {
               messages={messages}
             />
           </Box>
-        </form>
+        </Box>
       </Container>
     </Layout>
   );
