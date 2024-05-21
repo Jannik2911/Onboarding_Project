@@ -32,7 +32,10 @@ const SearchComponent = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [open, setOpen] = useState(false);
-  const [arr, setArr] = useState(null);
+  const [arr, setArr] = useState(() => {
+    const saved = localStorage.getItem("mitarbeiter");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -42,29 +45,19 @@ const SearchComponent = () => {
   };
 
   const handleActionClick = () => {
-    console.log("Eregnis erstellen");
+    console.log("Ereignis erstellen");
   };
 
   const handleTaskClick = () => {
-    console.log("Eregnis erstellen");
+    console.log("Ereignis erstellen");
   };
 
-  useEffect(() => {
-    fetch("http://localhost:8000/names")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setArr(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
+    console.log(arr);
     const filtered = arr?.filter((element) => {
-      return element.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return element.lastname.toLowerCase().includes(searchTerm.toLowerCase());
     });
     setFilteredArr(filtered);
   }, [searchTerm, arr]);
@@ -153,7 +146,10 @@ const SearchComponent = () => {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">Aktion auswählen</h2>
+          <h2 id="parent-modal-title">
+            Aktion auswählen für {selectedItem?.name} aus Fachbereich:{" "}
+            {selectedItem?.fb}
+          </h2>
           <Button variant="contained" onClick={handleActionClick}>
             Ereignis erstellen
           </Button>
@@ -164,9 +160,6 @@ const SearchComponent = () => {
           >
             Aufgabe hinzufügen
           </Button>
-          <p id="parent-modal-description">
-            {selectedItem?.name + ", ID: " + selectedItem?.id}
-          </p>
         </Box>
       </Modal>
     </div>
