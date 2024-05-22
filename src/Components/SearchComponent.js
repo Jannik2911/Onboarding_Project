@@ -12,6 +12,10 @@ import Modal from "@mui/material/Modal";
 import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
+/*
+Schnellkontakt
+*/
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -51,8 +55,6 @@ const SearchComponent = () => {
   const handleTaskClick = () => {
     console.log("Ereignis erstellen");
   };
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     console.log(arr);
@@ -134,7 +136,7 @@ const SearchComponent = () => {
                 </IconButton>
               }
             >
-              <ListItemText primary={`${value.name}`} />
+              <ListItemText primary={`${value.name}` + " " + `${value.lastname}`}/>
             </ListItem>
           </Box>
         ))}
