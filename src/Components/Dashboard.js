@@ -37,7 +37,7 @@ export default function Dashboard() {
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
-                  width: 1120,
+                  width: 1000,
                   height: 300,
                 }}
               >
@@ -45,7 +45,7 @@ export default function Dashboard() {
                   component="h1"
                   variant="h6"
                   color="inherit"
-                  sx={{ flexGrow: 1 }}
+                  sx={{ flexGrow: 1, mr: 1 }}
                 >
                   Anstehende Aufgaben
                 </Typography>

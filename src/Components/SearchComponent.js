@@ -52,8 +52,6 @@ const SearchComponent = () => {
     console.log("Ereignis erstellen");
   };
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     console.log(arr);
     const filtered = arr?.filter((element) => {
@@ -134,7 +132,7 @@ const SearchComponent = () => {
                 </IconButton>
               }
             >
-              <ListItemText primary={`${value.name}`} />
+              <ListItemText primary={`${value.name}` + " " + `${value.lastname}`}/>
             </ListItem>
           </Box>
         ))}
