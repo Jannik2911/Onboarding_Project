@@ -14,6 +14,7 @@ const useStyles = styled({
   calendarContainer: {
     width: 300,
     height: 300,
+    position: "flex"
   },
 });
 

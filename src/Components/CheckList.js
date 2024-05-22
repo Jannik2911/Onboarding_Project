@@ -38,8 +38,8 @@ export default function CheckList() {
   }, [tasks]);
 
   return (
-    <List sx={{ width: "100%", height: 250, bgcolor: "background.paper" }}>
-      {tasks.map((task, index) => (
+    <List sx={{ width: "inherit", height: 250, bgcolor: "background.paper" }}>
+      {tasks.map((task, index) => ((!task.completed) && (
         <ListItem
           key={index}
           sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
@@ -49,19 +49,19 @@ export default function CheckList() {
         >
           <ListItemText
             primary={
-              <span
-                style={{
-                  textDecoration: task.completed ? "line-through" : "none",
-                }}
-              >
-                {task.text}
-              </span>
+            <span
+               style={{
+                 textDecoration: task.completed ? "line-through" : "none",
+               }}
+             >
+               {task.text}
+             </span>
             }
             secondary={
               task.completed ? `Aufgabe erledigt am ${task.completedAt}` : ""
             }
           />
-        </ListItem>
+        </ListItem>)
       ))}
     </List>
   );

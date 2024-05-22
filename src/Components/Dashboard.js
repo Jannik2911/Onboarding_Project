@@ -37,9 +37,9 @@ export default function Dashboard() {
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
-                  width: 1000,
+                  width: "inherit",
                   height: 300,
-                }}
+                }}  
               >
                 <Typography
                   component="h1"
@@ -58,7 +58,7 @@ export default function Dashboard() {
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
-                  width: 350,
+                  width: "inherit",
                   height: 300,
                   ml: "380px",
                 }}

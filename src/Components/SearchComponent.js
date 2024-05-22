@@ -12,6 +12,10 @@ import Modal from "@mui/material/Modal";
 import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
+/*
+Schnellkontakt
+*/
+
 const style = {
   position: "absolute",
   top: "50%",
