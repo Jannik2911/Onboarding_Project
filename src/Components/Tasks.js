@@ -10,21 +10,21 @@ import {
   Button,
   Box,
   Typography,
+  Grid,
+  Paper,
+  Container,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Container } from "@mui/system";
 import Layout from "./Layout";
 
 function TodoList() {
   const [tasks, setTasks] = useState(() => {
-    // Laden der Aufgaben aus dem localStorage beim Initialisieren
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    // Speichern der Aufgaben im localStorage, wenn sich die Tasks ändern
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
@@ -59,86 +59,98 @@ function TodoList() {
   };
 
   return (
-    <Layout>
-      <Container maxWidth="md">
-        <Box
-          sx={{
-            mt: 4,
-            mb: 2,
-            pt: 1,
-            pb: 1,
-            boxShadow: 3,
-            backgroundColor: "primary.main",
-            color: "white",
-            mt: "80px",
-          }}
-        >
-          <Typography variant="h6" component="h1" gutterBottom align="center">
-            Aufgaben für neue Mitarbeiter
-          </Typography>
-        </Box>
-        <Box sx={{ mb: 4, p: 3, boxShadow: 3 }}>
-          <TextField
-            label="Neue Aufgabe"
-            variant="outlined"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => (e.key === "Enter" ? addTask() : null)}
-            fullWidth
-          />
-          <Button
-            onClick={addTask}
-            variant="contained"
-            color="primary"
-            sx={{ mt: 1, mb: 2 }}
-          >
-            Hinzufügen
-          </Button>
-          <List>
-            {tasks.map((task, index) => (
-              <ListItem key={index}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={task.completed}
-                    tabIndex={-1}
-                    disableRipple
-                    onChange={() => toggleCompletion(index)}
-                    sx={{
-                      color: "primary.main",
-                      "&.Mui-checked": { color: "primary.main" },
+    <Layout headerText={"Aufgaben für neue Mitarbeiter"}>
+      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: 3,
+              }}
+            >
+              <TextField
+                label="Neue Aufgabe"
+                variant="outlined"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => (e.key === "Enter" ? addTask() : null)}
+                fullWidth
+              />
+              <Button
+                onClick={addTask}
+                variant="contained"
+                color="primary"
+                sx={{ mt: 2 }}
+              >
+                Hinzufügen
+              </Button>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: 3,
+              }}
+            >
+              <List>
+                {tasks.map((task, index) => (
+                  <ListItem
+                    key={index}
+                    sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
+                    style={{
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
                     }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <span
-                      style={{
-                        textDecoration: task.completed
-                          ? "line-through"
-                          : "none",
-                      }}
+                  >
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={task.completed}
+                        tabIndex={-1}
+                        disableRipple
+                        onChange={() => toggleCompletion(index)}
+                        sx={{
+                          color: "primary.main",
+                          "&.Mui-checked": { color: "primary.main" },
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <span
+                          style={{
+                            textDecoration: task.completed
+                              ? "line-through"
+                              : "none",
+                          }}
+                        >
+                          {task.text}
+                        </span>
+                      }
+                      secondary={
+                        task.completed
+                          ? `Aufgabe erledigt am ${task.completedAt}`
+                          : ""
+                      }
+                    />
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => deleteTask(index)}
                     >
-                      {task.text}
-                    </span>
-                  }
-                  secondary={
-                    task.completed
-                      ? `Aufgabe erledigt am ${task.completedAt}`
-                      : ""
-                  }
-                />
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => deleteTask(index)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
     </Layout>
   );

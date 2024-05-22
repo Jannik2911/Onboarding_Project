@@ -22,13 +22,12 @@ export default function Footer() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        position: "absolute",
+        color: "inherit",
         bottom: 0,
         left: 0,
         right: 0,
       }}
     >
-      <CssBaseline />
       <Box
         component="footer"
         sx={{
@@ -36,11 +35,10 @@ export default function Footer() {
           px: 2,
           mt: "auto",
           color: "inherit",
-          backgroundColor: "inherit",
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800],
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
         }}
       >
         <Container maxWidth="sm">

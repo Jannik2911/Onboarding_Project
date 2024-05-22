@@ -65,18 +65,17 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Layout({ children }) {
-  const [open, setOpen] = React.useState(true);
-  const [arr, setArr] = React.useState([]);
+export default function Layout({ children, headerText }) {
+  const [open, setOpen] = useState(true);
+  const [arr, setArr] = useState([]);
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,9 +87,7 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     fetch("http://localhost:8000/notifications")
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         setArr(data);
       })
@@ -99,19 +96,15 @@ export default function Layout({ children }) {
       });
   }, []);
 
-  const notifcationsOpen = Boolean(anchorEl);
-  const id = notifcationsOpen ? "simple-popover" : undefined;
+  const notificationsOpen = Boolean(anchorEl);
+  const id = notificationsOpen ? "simple-popover" : undefined;
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex", maxHeight: "100vh" }}>
+      <Box sx={{ display: "flex", height: "100vh" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px", // keep right padding when drawer closed
-            }}
-          >
+          <Toolbar sx={{ pr: "24px" }}>
             <IconButton
               edge="start"
               color="inherit"
@@ -131,7 +124,7 @@ export default function Layout({ children }) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Onboarding-Tool Dashboard
+              {headerText ? headerText : "Onboarding-Tool Dashboard"}
             </Typography>
             <IconButton color="inherit" onClick={handleNotificationsClick}>
               <Badge badgeContent={arr.length} color="secondary">
@@ -140,17 +133,11 @@ export default function Layout({ children }) {
             </IconButton>
             <Popover
               id={id}
-              open={notifcationsOpen}
+              open={notificationsOpen}
               anchorEl={anchorEl}
               onClose={handleNotificationsClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              transformOrigin={{ vertical: "top", horizontal: "center" }}
             >
               <Box p={2}>
                 <div key="notifications-heading">
@@ -190,9 +177,25 @@ export default function Layout({ children }) {
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>
-        {children}
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+            mt: "50px",
+            height: "calc(100vh - 50px)",
+            overflow: "auto",
+          }}
+        >
+          <Box sx={{ flexGrow: 1 }}>{children}</Box>
+          <Footer />
+        </Box>
       </Box>
-      <Footer />
     </ThemeProvider>
   );
 }

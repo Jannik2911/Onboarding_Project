@@ -13,67 +13,66 @@ import CheckList from "./CheckList";
 import SearchComponent from "./SearchComponent";
 import Layout from "./Layout";
 
+const defaultTheme = createTheme();
+
 export default function Dashboard() {
   return (
-    <Layout>
-      <CssBaseline />
-      <Box
-        component="main"
-        sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
-          flexGrow: 1,
-
-          mt: "50px",
-        }}
-      >
+    <ThemeProvider theme={defaultTheme}>
+      <Layout>
+        <CssBaseline />
         <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={12} lg={6}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(12, 1fr)",
+              gridAutoRows: "minmax(100px, auto)",
+              gap: 3,
+            }}
+          >
+            <Box sx={{ gridColumn: { xs: "span 12", md: "span 6" } }}>
               <Paper
                 sx={{
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
-                  width: 1120,
-                  height: 300,
+                  height: "100%",
                 }}
               >
-                <Typography
-                  component="h1"
-                  variant="h6"
-                  color="inherit"
-                  sx={{ flexGrow: 1 }}
-                >
+                <Typography component="h1" variant="h6" color="inherit">
                   Anstehende Aufgaben
                 </Typography>
                 <CheckList />
               </Paper>
-            </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            </Box>
+            <Box sx={{ gridColumn: { xs: "span 12", md: "span 6" } }}>
               <Paper
                 sx={{
                   p: 2,
                   display: "flex",
                   flexDirection: "column",
-                  width: 350,
-                  height: 300,
-                  ml: "380px",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <DateCalendarReferenceDate />
               </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+            </Box>
+            <Box sx={{ gridColumn: "span 12" }}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+              >
                 <SearchComponent />
               </Paper>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
-      </Box>
-    </Layout>
+      </Layout>
+    </ThemeProvider>
   );
 }

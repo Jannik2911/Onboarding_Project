@@ -2,7 +2,7 @@ import Layout from "./Layout";
 
 const EmployeeList = () => {
   return (
-    <Layout>
+    <Layout headerText={"Mitarbeiterverzeichnis"}>
       <div></div>
     </Layout>
   );

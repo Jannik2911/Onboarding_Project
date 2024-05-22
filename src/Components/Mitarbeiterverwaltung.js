@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
@@ -9,10 +10,11 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Grid,
+  Paper,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Layout from "./Layout";
-import { useState, useEffect } from "react";
 
 export default function Mitarbeiterverwaltung() {
   const [name, setName] = useState("");
@@ -47,90 +49,93 @@ export default function Mitarbeiterverwaltung() {
   };
 
   return (
-    <Layout>
-      <Container maxWidth="md">
-        <Box
-          sx={{
-            mt: 4,
-            mb: 2,
-            pt: 1,
-            pb: 1,
-            boxShadow: 3,
-            backgroundColor: "primary.main",
-            color: "white",
-            mt: "80px",
-          }}
-        >
-          <Typography variant="h6" component="h1" gutterBottom align="center">
-            Mitarbeiterverwaltung
-          </Typography>
-        </Box>
-        <Box sx={{ mb: 4, p: 3, boxShadow: 3 }}>
-          <div className="mitarbeiter-verwaltung">
-            <div>
-              <TextField
-                sx={{ mb: 1, mr: 1 }}
-                required
-                id="name"
-                label="Vorname"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <TextField
-                sx={{ mb: 1, mr: 1 }}
-                required
-                id="lastname"
-                label="Nachname"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-              />
-              <TextField
-                required
-                id="email"
-                label="E-Mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <TextField
-                sx={{ mb: 1 }}
-                required
-                id="fb"
-                label="Fachbereich"
-                value={fb}
-                onChange={(e) => setFb(e.target.value)}
-              />
-            </div>
-            <Button variant="contained" onClick={handleClick}>
-              Hinzufügen
-            </Button>
-          </div>
-        </Box>
-        <Box sx={{ p: 2, boxShadow: 3, mb: 2 }}>
-          <Typography variant="h6" gutterBottom>
-            Mitarbeiter Liste
-          </Typography>
-          <List>
-            {mitarbeiterListe.map((mitarbeiter, index) => (
-              <ListItem
-                key={index}
-                secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => handleDelete(index)}
+    <Layout headerText={"Mitarbeiterverwaltung"}>
+      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 3, boxShadow: 3 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={3}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="name"
+                    label="Vorname"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="lastname"
+                    label="Nachname"
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="email"
+                    label="E-Mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="fb"
+                    label="Fachbereich"
+                    value={fb}
+                    onChange={(e) => setFb(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button variant="contained" onClick={handleClick} fullWidth>
+                    Hinzufügen
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, boxShadow: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Mitarbeiterliste
+              </Typography>
+              <List>
+                {mitarbeiterListe.map((mitarbeiter, index) => (
+                  <ListItem
+                    key={index}
+                    sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
+                    style={{
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                    }}
+                    secondaryAction={
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => handleDelete(index)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
                   >
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemText
-                  primary={`${mitarbeiter.name} ${mitarbeiter.lastname}`}
-                  secondary={`${mitarbeiter.email}, Fachbereich: ${mitarbeiter.fb}`}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+                    <ListItemText
+                      primary={`${mitarbeiter.name} ${mitarbeiter.lastname}`}
+                      secondary={`${mitarbeiter.email}, Fachbereich: ${mitarbeiter.fb}`}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
     </Layout>
   );

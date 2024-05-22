@@ -7,7 +7,15 @@ import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import deLocale from "date-fns/locale/de";
-import { Box, TextField, Button, Container } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Grid,
+  Paper,
+} from "@mui/material";
 
 const locales = {
   de: deLocale,
@@ -75,76 +83,74 @@ const Terminmanager = () => {
   };
 
   return (
-    <Layout>
-      <Container
-        maxWidth="xl"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{ alignItems: "center" }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              bgcolor: "background.paper",
-              p: 2,
-            }}
-          >
-            <TextField
-              label="Ereignistitel"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              variant="outlined"
-              required
-            />
-            <TextField
-              type="datetime-local"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-              variant="outlined"
-              required
-            />
-            <TextField
-              type="datetime-local"
-              value={end}
-              onChange={(e) => setEnd(e.target.value)}
-              variant="outlined"
-              required
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Ereignis hinzufügen
-            </Button>
-          </Box>
-          <Box
-            sx={{
-              height: 630,
-              border: "1px solid grey",
-              borderRadius: 2,
-              textAlign: "center",
-              overflow: "auto",
-              width: "100%",
-            }}
-          >
-            <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: "100%" }}
-              culture="de"
-              messages={messages}
-            />
-          </Box>
-        </Box>
+    <Layout headerText={"Terminmanager"}>
+      <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 3, boxShadow: 3 }}>
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={12} sm={6} md={3}>
+                    <TextField
+                      fullWidth
+                      required
+                      label="Beschreibung"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <TextField
+                      fullWidth
+                      required
+                      type="datetime-local"
+                      value={start}
+                      onChange={(e) => setStart(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <TextField
+                      fullWidth
+                      required
+                      type="datetime-local"
+                      value={end}
+                      onChange={(e) => setEnd(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Button type="submit" variant="contained" color="primary">
+                      Ereignis hinzufügen
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, boxShadow: 3 }}>
+              <Box
+                sx={{
+                  height: "calc(50vh)",
+                  border: "1px solid grey",
+                  borderRadius: 2,
+                  textAlign: "center",
+                  overflow: "auto",
+                  width: "100%",
+                }}
+              >
+                <Calendar
+                  localizer={localizer}
+                  events={events}
+                  startAccessor="start"
+                  endAccessor="end"
+                  style={{ height: "100%" }}
+                  culture="de"
+                  messages={messages}
+                />
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
     </Layout>
   );
