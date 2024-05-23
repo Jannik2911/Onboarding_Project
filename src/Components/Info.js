@@ -1,73 +1,149 @@
-import React from 'react';
-import Layout from './Layout';
-import { Container, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from "react";
+import Layout from "./Layout";
+import {
+  Container,
+  Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Divider,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Link from "@mui/material/Link";
+
+const faqs = [
+  {
+    title: "Ansprechpartner",
+    details: [
+      {
+        name: "Max Mustermann",
+        phone: "01 345 458",
+        email: "mustermann@drv.de",
+      },
+    ],
+  },
+  {
+    title: "Pausenregelung",
+    details: [
+      "Es ist eine Mittagspause von 30 Minuten beziehungsweise von 60 Minuten",
+      "(nur bei Minderjährigen) vorgeschrieben. Die Mittagspause kann ab",
+      "11:30 Uhr flexibel gelegt werden.",
+    ],
+  },
+  {
+    title: "Kantine",
+    details: [
+      "11:30 Uhr - 13:30 Uhr",
+      <br />,
+      "Informationen über den aktuellen Speiseplan finden Sie im Intranet. Dort ist eine Seite",
+      "im Internet verlinkt.",
+      "Morgens (von 07:30 Uhr bis 09:00 Uhr) kann man in der Kantine auch belegte Brötchen,",
+      "Kakao, etc. kaufen.",
+      "Im Vorraum der Kantine stehen Süßigkeitenautomaten und ein Getränkeautomat. Weitere Getränkeautomaten sind bei den Übergängen zum Erweiterungsbau aufgestellt",
+      "(hier nur Bargeldzahlung möglich).",
+      " Während der Mittagspause ist dort auch unser Café P geöffnet (sieht aus wie eine Baustelle, ist aber keine!), in dem Kaffee, Kuchen und Süßes verkauft werden",
+    ],
+  },
+  {
+    title: "Öffnungszeiten Cafe P",
+    details: ["Donnerstags 10:00 Uhr - 13:30 Uhr", "Freitags geschlossen"],
+  },
+  {
+    title: "Mitarbeiterausweis als Casinocard",
+    details: [
+      "Vor der Cafeteria auf der linken Seite finden Sie Automaten",
+      "an denen Sie Ihren Mitarbeiterausweis mit Geld (nur mit Scheinen!) aufladen können.",
+    ],
+  },
+  {
+    title: "Geld",
+    details: [
+      "Einen Geldautomaten der Sparkasse finden Sie im Erdgeschoss neben der",
+      "Auskunfts und Beratungsstelle am Übergang vom Alt- in das Erweiterungsgebäude.",
+    ],
+  },
+  {
+    title: "Jugendaufenthaltsraum",
+    details: [
+      "Dies ist ein Pausenraum für alle Nachwuchskräfte, ausgestattet mit einer kleinen Sofasitzecke, mehreren Tischen und Stühlen.",
+      "Bezüglich der Lage des Jugendaufenthaltsraumes wird auf Seite 5 dieser Broschüre verwiesen.",
+    ],
+  },
+  {
+    title: "Teeküchen",
+    details: [
+      "Die sogenannten Teeküchen befinden sich jeweils am Ende der Flügel (Seite 5) und",
+      "können ebenfalls für die Pausen genutzt werden. In jeder Teeküche steht ein Kühlschrank, welcher für die Lagerung von Lebensmitteln genutzt werden darf.",
+      "Die Lebensmittel sind mit Ihrem Namen und der aktuellen Abschnittsnummer zu versehen, ansonsten werden diese entsorgt.",
+      "Bitte beachten Sie, dass Sie Ihre Lebensmittel beim Wechsel in einen anderen",
+      "Abschnitt oder in die HSPV/Berufskolleg aus dem Kühlschrank entfernen!",
+    ],
+  },
+  {
+    title: "Kaffeeautomaten im Ausbildungsreferat",
+    details: [
+      "In jeder Teeküche befinden sich zwei Kaffeemaschinen. Es bietet sich an, sich mit mehreren Leuten zusammenzuschließen, um Kaffee zu kochen.",
+      "Dann werden die Kaffeemaschinen nicht für einzelne Tassen in Betrieb genommen. Die Filter stehen zur Verfügung. Das Kaffeepulver muss selbst mitgebracht werden.",
+      "Für einzelne Tassen Kaffee befindet sich in der Teeküche gegenüber des Jugendaufenthaltsraumes ein vollautomatischer Kaffeeautomat. ",
+      "Dort sind verschiedene Getränke wie Cappuccino, Kaffee, Latte Macchiato und Espresso gegen kleines Geld (jeweils 0,50 Euro) erhältlich.",
+      "Heißes Wasser für Tee ist an diesem Automaten ebenfalls erhältlich und kostenfrei!",
+    ],
+  },
+  {
+    title: "Krankmeldung",
+    details: [
+      "Wenn Sie morgens feststellen, dass Sie arbeits- beziehungsweise dienstunfähig sind,",
+      "rufen Sie bitte sofort Ihre Abschnittsleiterin/Ihren Abschnittsleiter an (vor Beginn der Kernarbeitszeit, also vor 09:00Uhr)!",
+      "Wichtig bei Sozifas: Bitte angeben, ob mit oder ohne AU-Attest.",
+      "Die Krankmeldung sollte vorrangig bei dem eigenen Ausbilder erfolgen. Sollte dieser nicht erreichbar sein, so melden Sie sich bitte bei lhrem Abschnittsleiter.",
+      "Sie sind verpflichtet, spätestens ab dem vierten Krankheitstage eine entsprechende Bescheinigung lhrer Ärztin/Ihres Arztes vorzulegen.",
+      "Bitte beachten Sie hierbei, dass das Wochenende bei den Krankheitstagen berücksichtigt wird. Sollten Sie beispielsweise ab freitags arbeits -beziehungs",
+      "weise dienstunfähig sein, so müssen Sie spätestens am Montag eine Arbeitsunfähigkeits-/Dienstunfähigkeitsbescheinigung vorlegen.",
+      "Bitte melden Sie sich nach Ende Ihrer Arbeitsunfähigkeit am ersten Arbeitstag morgens",
+      "bei Frau XXX oder Frau XXX (Referatssekretariat) wieder gesund",
+    ],
+  },
+];
 
 const Info = () => {
   return (
-    <Layout headerText={"Informationen"}>
-      <Container>
+    <Layout headerText="Informationen">
+      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
         <Typography variant="h4" gutterBottom>
           Häufig gestellte Fragen (FAQ)
         </Typography>
-        
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Ansprechpartner für Personalangelegenheiten</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Max Mustermann<br />
-              Telefon: 01234 567890<br />
-              Email: max.mustermann@behoerde.de
-            </Typography>
-            <Typography>
-              Erika Musterfrau<br />
-              Telefon: 09876 543210<br />
-              Email: erika.musterfrau@behoerde.de
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Ansprechpartner für IT-Angelegenheiten</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              IT Support Team<br />
-              Telefon: 01111 222333<br />
-              Email: it.support@behoerde.de
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Öffnungszeiten der Behörde</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Montag - Freitag: 08:00 - 16:00 Uhr<br />
-              Samstag: 09:00 - 12:00 Uhr<br />
-              Sonntag: Geschlossen
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Verhaltensregeln in der Behörde</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              1. Freundlicher und respektvoller Umgang miteinander.<br />
-              2. Pünktlichkeit bei Terminen.<br />
-              3. Einhaltung der Datenschutzrichtlinien.<br />
-              4. Sauberkeit und Ordnung in den Büroräumen.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+        {faqs.map((faq, index) => (
+          <Accordion key={index}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>{faq.title}</Typography>
+            </AccordionSummary>
+            <Divider />
+            <AccordionDetails>
+              {Array.isArray(faq.details) ? (
+                faq.details.map((detail, detailIndex) =>
+                  typeof detail === "string" ? (
+                    <Typography key={detailIndex}>{detail}</Typography>
+                  ) : (
+                    <Typography key={detailIndex}>
+                      {detail.name && <div>{detail.name}</div>}
+                      {detail.phone && (
+                        <div>
+                          Telefon:{" "}
+                          <a href={`tel:${detail.phone}`}>{detail.phone}</a>
+                        </div>
+                      )}
+                      {detail.email && <div>Email: {detail.email}</div>}
+                      {detail.days && <div>{detail.days}</div>}
+                      {detail.hours && <div>{detail.hours}</div>}
+                    </Typography>
+                  )
+                )
+              ) : (
+                <Typography>{faq.details}</Typography>
+              )}
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </Container>
     </Layout>
   );

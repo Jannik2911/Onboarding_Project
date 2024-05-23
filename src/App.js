@@ -15,6 +15,7 @@ import { AdminContext } from "./Components/AdminContext";
 import Info from "./Components/Info";
 import Ablaufplan from "./Components/Ablaufplan";
 import CreateSchedule from "./Components/CreateSchedule";
+import LoggedOut from "./Components/LoggedOut";
 
 /*
 npx json-server --watch ./src/helper/db.json --port 8000
@@ -38,6 +39,7 @@ function App() {
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
           <Route exact path="/terminmanager" element={<Terminmanager />} />
           <Route exact path="/info" element={<Info />} />
+          <Route exact path="/loggedout" element={<LoggedOut />} />
           {!isAdmin && (
             <Route exact path="/ablaufplan" element={<Ablaufplan />} />
           )}

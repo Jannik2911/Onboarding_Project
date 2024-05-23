@@ -55,7 +55,7 @@ export default function MainListItems() {
             <BadgeOutlinedIcon onClick={() => open("/employeelist")} />
           </ListItemIcon>
           <ListItemText
-            primary="Mitarbeiterverzeichnis"
+            primary="Kontaktbuch"
             onClick={() => open("/employeelist")}
           />
         </ListItemButton>

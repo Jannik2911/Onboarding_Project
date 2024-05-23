@@ -44,6 +44,8 @@ export default function Footer() {
         <Container maxWidth="sm">
           <Typography variant="body1"></Typography>
           Jannik Linde, Niklas Cinar, Julian Heinze
+          <br />
+          Nur für den internen Gebrauch
           <Copyright />
         </Container>
       </Box>

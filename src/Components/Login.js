@@ -8,10 +8,13 @@ import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { AdminContext } from "./AdminContext";
+import { LoginContext } from "./LoginContext";
 import { useContext } from "react";
 
 export default function Login() {
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+
   let navigate = useNavigate();
   const routeChange = (path) => {
     navigate(path);
@@ -29,6 +32,8 @@ export default function Login() {
             user.name === form.get("name") &&
             user.password === form.get("password")
           ) {
+            setIsLoggedIn(true);
+
             if (user.admin === true) {
               setIsAdmin(true);
             } else {

@@ -19,6 +19,11 @@ import { useState, useEffect, useContext } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import Footer from "./Footer";
 import { AdminContext } from "./AdminContext";
+import PersonIcon from "@mui/icons-material/Person";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { LoginContext } from "./LoginContext";
+import LoggedOut from "./LoggedOut";
 
 const drawerWidth = 240;
 
@@ -72,20 +77,37 @@ export default function Layout({ children, headerText }) {
   const [open, setOpen] = useState(true);
   const [arr, setArr] = useState([]);
 
+  let navigate = useNavigate();
+
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [personEl, setPersonEl] = useState(null);
 
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handlePersonClick = (event) => {
+    setPersonEl(event.currentTarget);
+  };
+
+  const handlePersonClose = () => {
+    setPersonEl(null);
+  };
+
   const handleNotificationsClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    navigate("/loggedout");
   };
 
   useEffect(() => {
@@ -99,8 +121,12 @@ export default function Layout({ children, headerText }) {
       });
   }, []);
 
+  if (!isLoggedIn) return <LoggedOut />;
+
   const notificationsOpen = Boolean(anchorEl);
+  const personOpen = Boolean(personEl);
   const id = notificationsOpen ? "simple-popover" : undefined;
+  const pid = personOpen ? "simple-popover" : undefined;
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -129,11 +155,47 @@ export default function Layout({ children, headerText }) {
             >
               {headerText ? headerText : "Onboarding-Tool Dashboard"}
             </Typography>
+            <IconButton color="inherit" onClick={handlePersonClick}>
+              <Badge color="secondary">
+                <PersonIcon />
+              </Badge>
+            </IconButton>
             <IconButton color="inherit" onClick={handleNotificationsClick}>
               <Badge badgeContent={arr.length} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Popover
+              id={pid}
+              open={personOpen}
+              anchorEl={personEl}
+              onClose={handlePersonClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              transformOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <Box
+                p={2}
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                <div key="person-heading">
+                  <Typography sx={{ fontWeight: "bold", fontSize: 14 }}>
+                    Eingeloggt als: {isAdmin ? "Admin" : "Benutzer"}
+                  </Typography>
+                  <Divider />
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    sx={{ mt: 1 }}
+                    onClick={logout}
+                  >
+                    Ausloggen
+                  </Button>
+                </div>
+              </Box>
+            </Popover>
+
             <Popover
               id={id}
               open={notificationsOpen}
@@ -170,9 +232,6 @@ export default function Layout({ children, headerText }) {
               px: [1],
             }}
           >
-            <Typography sx={{ fontWeight: "bold", fontSize: 14 }}>
-              Eingeloggt als: {isAdmin ? "Admin" : "Benutzer"}
-            </Typography>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
@@ -182,6 +241,20 @@ export default function Layout({ children, headerText }) {
             <MainListItems />
             <Divider sx={{ my: 1 }} />
           </List>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box
+            sx={{
+              backgroundColor: "inherit",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              p: 2,
+            }}
+          >
+            <Typography sx={{ fontWeight: "bold", fontSize: 12 }}>
+              Version: 0.1
+            </Typography>
+          </Box>
         </Drawer>
         <Box
           component="main"
