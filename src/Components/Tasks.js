@@ -16,8 +16,10 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Layout from "./Layout";
+import dayjs from "dayjs";
 
 function TodoList() {
+  const [frist, setFrist] = useState("");
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
@@ -30,8 +32,16 @@ function TodoList() {
 
   const addTask = () => {
     if (input) {
-      setTasks([...tasks, { text: input, completed: false }]);
+      setTasks([
+        ...tasks,
+        {
+          text: input,
+          completed: false,
+          f: new Date(frist).toLocaleString("de-DE"),
+        },
+      ]);
       setInput("");
+      setFrist("");
     }
   };
 
@@ -78,6 +88,14 @@ function TodoList() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => (e.key === "Enter" ? addTask() : null)}
                 fullWidth
+              />
+              <TextField
+                fullWidth
+                required
+                type="datetime-local"
+                value={frist}
+                sx={{ mt: 1 }}
+                onChange={(e) => setFrist(e.target.value)}
               />
               <Button
                 onClick={addTask}
@@ -135,7 +153,7 @@ function TodoList() {
                       secondary={
                         task.completed
                           ? `Aufgabe erledigt am ${task.completedAt}`
-                          : ""
+                          : `Zu erledigen bis zum ${task.f}`
                       }
                     />
                     <IconButton

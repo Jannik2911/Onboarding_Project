@@ -57,7 +57,6 @@ const SearchComponent = () => {
   };
 
   useEffect(() => {
-    console.log(arr);
     const filtered = arr?.filter((element) => {
       return element.lastname.toLowerCase().includes(searchTerm.toLowerCase());
     });
@@ -110,7 +109,7 @@ const SearchComponent = () => {
       >
         {filteredArr?.map((value) => (
           <Box
-            key={value.id}
+            key={value.name}
             sx={{
               width: "100%", // Inherit the width of the list container
               border: "1px solid grey",
@@ -120,6 +119,7 @@ const SearchComponent = () => {
             }}
           >
             <ListItem
+              key={value.id}
               onClick={() => handleItemClick(value)}
               onMouseEnter={() => setHoveredItem(value)}
               onMouseLeave={() => setHoveredItem(null)}
@@ -136,7 +136,9 @@ const SearchComponent = () => {
                 </IconButton>
               }
             >
-              <ListItemText primary={`${value.name}` + " " + `${value.lastname}`}/>
+              <ListItemText
+                primary={`${value.name}` + " " + `${value.lastname}`}
+              />
             </ListItem>
           </Box>
         ))}

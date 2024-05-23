@@ -1,7 +1,6 @@
 import "./App.css";
 import Login from "./Components/Login";
 import ForgotPassword from "./Components/ForgotPassword";
-import Footer from "./Components/Footer";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Mitarbeiterverwaltung from "./Components/Mitarbeiterverwaltung";
@@ -9,10 +8,13 @@ import Dashboard from "./Components/Dashboard";
 import UserChannel from "./Components/UserChannel";
 import Tasks from "./Components/Tasks";
 import EmployeeList from "./Components/EmployeeList";
-import Layout from "./Components/Layout";
-import DashboardComponent from "./Components/Dashboard";
 import Terminmanager from "./Components/Terminmanager";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+
+import { AdminContext } from "./Components/AdminContext";
+import Info from "./Components/Info";
+import Ablaufplan from "./Components/Ablaufplan";
+import CreateSchedule from "./Components/CreateSchedule";
 
 /*
 npx json-server --watch ./src/helper/db.json --port 8000
@@ -23,23 +25,39 @@ function App() {
     document.title = "Onboarding-Tool";
   });
 
+  const { isAdmin, setIsAdmin } = useContext(AdminContext);
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="/test" element={<Dashboard />} />
           <Route exact path="/tasks" element={<Tasks />} />
-          <Route exact path="/employeelist" element={<EmployeeList />} />
           <Route exact path="/userchannel" element={<UserChannel />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
           <Route exact path="/terminmanager" element={<Terminmanager />} />
-          <Route
-            exact
-            path="/mitarbeiterverwaltung"
-            element={<Mitarbeiterverwaltung />}
-          />
+          <Route exact path="/info" element={<Info />} />
+          {!isAdmin && (
+            <Route exact path="/ablaufplan" element={<Ablaufplan />} />
+          )}
+          {isAdmin && (
+            <Route
+              exact
+              path="/ablaufplanerstellen"
+              element={<CreateSchedule />}
+            />
+          )}
+          {isAdmin && (
+            <Route
+              exact
+              path="/mitarbeiterverwaltung"
+              element={<Mitarbeiterverwaltung />}
+            />
+          )}
+          {isAdmin && (
+            <Route exact path="/employeelist" element={<EmployeeList />} />
+          )}
         </Routes>
       </BrowserRouter>
     </div>

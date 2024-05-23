@@ -3,7 +3,9 @@ import Layout from "./Layout";
 const EmployeeList = () => {
   return (
     <Layout headerText={"Mitarbeiterverzeichnis"}>
-      <div></div>
+      <div>
+        <h2>TESTEST</h2>
+      </div>
     </Layout>
   );
 };

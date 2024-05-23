@@ -39,30 +39,35 @@ export default function CheckList() {
 
   return (
     <List sx={{ width: "inherit", height: 250, bgcolor: "background.paper" }}>
-      {tasks.map((task, index) => ((!task.completed) && (
-        <ListItem
-          key={index}
-          sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
-          style={{
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <ListItemText
-            primary={
-            <span
-               style={{
-                 textDecoration: task.completed ? "line-through" : "none",
-               }}
-             >
-               {task.text}
-             </span>
-            }
-            secondary={
-              task.completed ? `Aufgabe erledigt am ${task.completedAt}` : ""
-            }
-          />
-        </ListItem>)
-      ))}
+      {tasks.map(
+        (task, index) =>
+          !task.completed && (
+            <ListItem
+              key={index}
+              sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
+              style={{
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <ListItemText
+                primary={
+                  <span
+                    style={{
+                      textDecoration: task.completed ? "line-through" : "none",
+                    }}
+                  >
+                    {task.text}
+                  </span>
+                }
+                secondary={
+                  task.completed
+                    ? `Aufgabe erledigt am ${task.completedAt}`
+                    : `Aufgabe zu erledigen bis ${task.f}`
+                }
+              />
+            </ListItem>
+          )
+      )}
     </List>
   );
 }

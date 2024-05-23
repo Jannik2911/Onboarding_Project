@@ -8,9 +8,17 @@ import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import { useNavigate } from "react-router-dom";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { AdminContext } from "../Components/AdminContext";
+import { useContext } from "react";
+import InfoIcon from "@mui/icons-material/Info";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import { Typography } from "@mui/material";
+//import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 export default function MainListItems() {
   let navigate = useNavigate();
+
+  const { isAdmin, setIsAdmin } = useContext(AdminContext);
 
   const open = (path) => {
     navigate(path);
@@ -30,24 +38,28 @@ export default function MainListItems() {
         </ListItemIcon>
         <ListItemText primary="Aufgaben" onClick={() => open("/tasks")} />
       </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <PeopleIcon onClick={() => open("/mitarbeiterverwaltung")} />
-        </ListItemIcon>
-        <ListItemText
-          primary="Mitarbeiterverwaltung"
-          onClick={() => open("/mitarbeiterverwaltung")}
-        />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <BadgeOutlinedIcon onClick={() => open("/employeelist")} />
-        </ListItemIcon>
-        <ListItemText
-          primary="Mitarbeiterverzeichnis"
-          onClick={() => open("/employeelist")}
-        />
-      </ListItemButton>
+      {isAdmin && (
+        <ListItemButton>
+          <ListItemIcon>
+            <PeopleIcon onClick={() => open("/mitarbeiterverwaltung")} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Mitarbeiterverwaltung"
+            onClick={() => open("/mitarbeiterverwaltung")}
+          />
+        </ListItemButton>
+      )}
+      {isAdmin && (
+        <ListItemButton>
+          <ListItemIcon>
+            <BadgeOutlinedIcon onClick={() => open("/employeelist")} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Mitarbeiterverzeichnis"
+            onClick={() => open("/employeelist")}
+          />
+        </ListItemButton>
+      )}
       <ListItemButton>
         <ListItemIcon>
           <CalendarMonthIcon onClick={() => open("/terminmanager")} />
@@ -56,6 +68,34 @@ export default function MainListItems() {
           primary="Terminmanager"
           onClick={() => open("/terminmanager")}
         />
+      </ListItemButton>
+      {!isAdmin && (
+        <ListItemButton>
+          <ListItemIcon>
+            <ListAltIcon onClick={() => open("/ablaufplan")} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Ablaufplan"
+            onClick={() => open("/ablaufplan")}
+          />
+        </ListItemButton>
+      )}
+      {isAdmin && (
+        <ListItemButton>
+          <ListItemIcon>
+            <ListAltIcon onClick={() => open("/ablaufplanerstellen")} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Ablaufplan erstellen"
+            onClick={() => open("/ablaufplanerstellen")}
+          />
+        </ListItemButton>
+      )}
+      <ListItemButton>
+        <ListItemIcon>
+          <InfoIcon onClick={() => open("/info")} />
+        </ListItemIcon>
+        <ListItemText primary="Informationen" onClick={() => open("/info")} />
       </ListItemButton>
     </React.Fragment>
   );

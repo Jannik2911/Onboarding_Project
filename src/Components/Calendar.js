@@ -8,13 +8,12 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 import { styled } from "@mui/material/styles";
 import { useState, useEffect, useRef } from "react";
-import Layout from "./Layout";
 
 const useStyles = styled({
   calendarContainer: {
     width: 300,
     height: 300,
-    position: "flex"
+    position: "flex",
   },
 });
 
@@ -61,7 +60,7 @@ export default function DateCalendarServerRequest() {
     return storedEvents ? JSON.parse(storedEvents) : [];
   });
 
-  const classes = useStyles();
+  const classes = useStyles("calendar");
 
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(events));

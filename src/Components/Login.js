@@ -1,7 +1,5 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -9,8 +7,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import { AdminContext } from "./AdminContext";
+import { useContext } from "react";
 
 export default function Login() {
+  const { isAdmin, setIsAdmin } = useContext(AdminContext);
   let navigate = useNavigate();
   const routeChange = (path) => {
     navigate(path);
@@ -20,19 +21,23 @@ export default function Login() {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
 
-    fetch("http://localhost:8000/user")
-      .then((res) => {
-        return res.json();
-      })
+    fetch("http://localhost:8000/users")
+      .then((res) => res.json())
       .then((data) => {
-        if (
-          data.name === form.get("name") &&
-          data.password === form.get("password")
-        ) {
-          routeChange("/dashboard");
-        } else {
-          console.log(data);
-        }
+        data.map((user) => {
+          if (
+            user.name === form.get("name") &&
+            user.password === form.get("password")
+          ) {
+            if (user.admin === true) {
+              setIsAdmin(true);
+            } else {
+              setIsAdmin(false);
+            }
+
+            routeChange("/dashboard");
+          }
+        });
       })
       .catch((err) => {
         console.log(err);

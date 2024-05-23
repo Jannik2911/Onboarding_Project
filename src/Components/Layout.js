@@ -15,9 +15,10 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MainListItems from "../Helper/listItems";
 import Popover from "@mui/material/Popover";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import Footer from "./Footer";
+import { AdminContext } from "./AdminContext";
 
 const drawerWidth = 240;
 
@@ -70,6 +71,8 @@ const defaultTheme = createTheme();
 export default function Layout({ children, headerText }) {
   const [open, setOpen] = useState(true);
   const [arr, setArr] = useState([]);
+
+  const { isAdmin, setIsAdmin } = useContext(AdminContext);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -167,6 +170,9 @@ export default function Layout({ children, headerText }) {
               px: [1],
             }}
           >
+            <Typography sx={{ fontWeight: "bold", fontSize: 14 }}>
+              Eingeloggt als: {isAdmin ? "Admin" : "Benutzer"}
+            </Typography>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>

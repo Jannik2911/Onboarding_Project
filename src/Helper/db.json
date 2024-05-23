@@ -1,9 +1,8 @@
 {
-    "user":
-    {
-      "name": "Tester",
-      "password": "test"
-    },
+    "users": [
+      {"id": 0, "name": "Tester", "password": "test", "admin": false},
+      {"id": 1, "name": "Admin", "password": "test", "admin": true}
+    ],
     "names": [
       { "id": 1, "name": "John Doe" },
       { "id": 2, "name": "Alice Smith" },
