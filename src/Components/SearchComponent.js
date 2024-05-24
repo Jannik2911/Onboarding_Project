@@ -12,10 +12,6 @@ import Modal from "@mui/material/Modal";
 import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-/*
-Schnellkontakt
-*/
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -30,14 +26,14 @@ const style = {
   pb: 3,
 };
 
-const SearchComponent = () => {
+const SearchComponent = ({ source }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredArr, setFilteredArr] = useState([]);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [open, setOpen] = useState(false);
   const [arr, setArr] = useState(() => {
-    const saved = localStorage.getItem("mitarbeiter");
+    const saved = localStorage.getItem(source ? source : "mitarbeiter");
     return saved ? JSON.parse(saved) : [];
   });
 
