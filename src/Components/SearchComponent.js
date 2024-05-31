@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const style = {
   position: "absolute",
@@ -26,7 +27,7 @@ const style = {
   pb: 3,
 };
 
-const SearchComponent = ({ source }) => {
+const SearchComponent = ({ source, icon }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredArr, setFilteredArr] = useState([]);
   const [hoveredItem, setHoveredItem] = useState(null);
