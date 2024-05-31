@@ -13,8 +13,8 @@ import { useEffect, useContext } from "react";
 
 import { AdminContext } from "./Components/AdminContext";
 import Info from "./Components/Info";
-import Ablaufplan from "./Components/Ablaufplan";
 import CreateSchedule from "./Components/CreateSchedule";
+import Schedule from "./Components/Schedule";
 import LoggedOut from "./Components/LoggedOut";
 
 /*
@@ -40,9 +40,7 @@ function App() {
           <Route exact path="/terminmanager" element={<Terminmanager />} />
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/loggedout" element={<LoggedOut />} />
-          {!isAdmin && (
-            <Route exact path="/ablaufplan" element={<Ablaufplan />} />
-          )}
+          <Route exact path="/ablaufplan" element={<Schedule />} />
           {isAdmin && (
             <Route
               exact
@@ -57,9 +55,7 @@ function App() {
               element={<Mitarbeiterverwaltung />}
             />
           )}
-          {isAdmin && (
-            <Route exact path="/employeelist" element={<EmployeeList />} />
-          )}
+          {<Route exact path="/employeelist" element={<EmployeeList />} />}
         </Routes>
       </BrowserRouter>
     </div>
