@@ -15,20 +15,50 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import Layout from "./Layout";
+import Box from "@mui/material/Box";
+
+import Modal from "@mui/material/Modal";
+import CustomizedTimeline from "./TimelineComponent";
 
 // Erstellung des Contexts für die Ereignisse
 const EventsContext = createContext();
 
 const Mitarbeiter = {
-  "Mitarbeiter A": "Mitarbeiter A",
-  "Mitarbeiter B": "Mitarbeiter B",
+  KVD: "Kommunaler Verwaltungsdienst",
+  SVD: "Staatlicher Verwaltungsdienst",
+};
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
 };
 
 const AdminPage = () => {
+  const [open, setOpen] = useState(false);
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [employee, setEmployee] = useState(Object.keys(Mitarbeiter)[0]);
   const { events, setEvents } = useContext(EventsContext);
+
+  const handleClick = () => {
+    handleOpen();
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const storedEvents = localStorage.getItem(`onboardingEvents_${employee}`);
@@ -46,7 +76,9 @@ const AdminPage = () => {
       employee: employee,
     };
     const updatedEvents = [...events, newEvent].sort(
-      (a, b) => new Date(a.date) - new Date(b.date)
+      (a, b) =>
+        new Date(a.date).toLocaleString("de-DE") -
+        new Date(b.date).toLocaleString("de-DE")
     );
     setEvents(updatedEvents);
     localStorage.setItem(
@@ -57,12 +89,11 @@ const AdminPage = () => {
     setEventDate("");
   };
 
+  const handleAddSubEvent = () => {};
+
   return (
-    <Layout>
-      <Container>
-        <Typography variant="h4" gutterBottom>
-          Onboarding Ablaufplan erstellen
-        </Typography>
+    <Layout headerText={"Ablaufplan erstellen"}>
+      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <Paper>
@@ -70,6 +101,7 @@ const AdminPage = () => {
               <TextField
                 label="Ereignisname"
                 fullWidth
+                sx={{ mb: 1 }}
                 value={eventName}
                 onChange={(e) => setEventName(e.target.value)}
               />
@@ -78,6 +110,7 @@ const AdminPage = () => {
                 type="date"
                 fullWidth
                 value={eventDate}
+                sx={{ mb: 1 }}
                 onChange={(e) => setEventDate(e.target.value)}
                 InputLabelProps={{
                   shrink: true,
@@ -88,6 +121,7 @@ const AdminPage = () => {
                 label="Mitarbeiter"
                 fullWidth
                 value={employee}
+                sx={{ mb: 1 }}
                 onChange={(e) => setEmployee(e.target.value)}
                 SelectProps={{
                   native: true,
@@ -102,6 +136,7 @@ const AdminPage = () => {
               <Button
                 variant="contained"
                 color="primary"
+                sx={{ mb: 1 }}
                 onClick={handleAddEvent}
                 disabled={!eventName || !eventDate}
               >
@@ -114,14 +149,14 @@ const AdminPage = () => {
               <Typography variant="h6">Ablaufplan für {employee}</Typography>
               <Timeline position="alternate">
                 {events.map((event, index) => (
-                  <TimelineItem key={index}>
+                  <TimelineItem key={index} onClick={handleClick}>
                     <TimelineOppositeContent
                       sx={{ m: "auto 0" }}
                       align="right"
                       variant="body2"
                       color="text.secondary"
                     >
-                      {event.date}
+                      {new Date(event.date).toLocaleDateString("de-DE")}
                     </TimelineOppositeContent>
                     <TimelineSeparator>
                       <TimelineConnector />
@@ -132,11 +167,50 @@ const AdminPage = () => {
                       <Typography variant="h6" component="span">
                         {event.name}
                       </Typography>
-                      <Typography>{`Mitarbeiter: ${event.employee}`}</Typography>
+                      <Typography>{`Rolle: ${event.employee}`}</Typography>
                     </TimelineContent>
                   </TimelineItem>
                 ))}
               </Timeline>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400 }}>
+                  <Typography variant="h6">
+                    Neues Ereignis hinzufügen
+                  </Typography>
+                  <TextField
+                    label="Ereignisname"
+                    fullWidth
+                    sx={{ mb: 1 }}
+                    value={eventName}
+                    onChange={(e) => setEventName(e.target.value)}
+                  />
+                  <TextField
+                    label="Datum"
+                    type="date"
+                    fullWidth
+                    value={eventDate}
+                    sx={{ mb: 1 }}
+                    onChange={(e) => setEventDate(e.target.value)}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ mb: 1 }}
+                    onClick={handleAddSubEvent}
+                    disabled={!eventName || !eventDate}
+                  >
+                    Unterereignis hinzufügen für Abschnitt
+                  </Button>
+                </Box>
+              </Modal>
             </Paper>
           </Grid>
         </Grid>
