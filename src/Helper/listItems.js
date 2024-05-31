@@ -69,17 +69,15 @@ export default function MainListItems() {
           onClick={() => open("/terminmanager")}
         />
       </ListItemButton>
-      {!isAdmin && (
-        <ListItemButton>
-          <ListItemIcon>
-            <ListAltIcon onClick={() => open("/ablaufplan")} />
-          </ListItemIcon>
-          <ListItemText
-            primary="Ablaufplan"
-            onClick={() => open("/ablaufplan")}
-          />
-        </ListItemButton>
-      )}
+      <ListItemButton>
+        <ListItemIcon>
+          <ListAltIcon onClick={() => open("/ablaufplan")} />
+        </ListItemIcon>
+        <ListItemText
+          primary="Ablaufplan"
+          onClick={() => open("/ablaufplan")}
+        />
+      </ListItemButton>
       {isAdmin && (
         <ListItemButton>
           <ListItemIcon>
