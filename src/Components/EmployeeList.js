@@ -1,115 +1,123 @@
-import Layout from "./Layout";
-import React, { useState, useEffect } from 'react';
-import { Box, Container, Grid, TextField, List, ListItem, ListItemText } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Button, Container, Grid, Box } from '@mui/material';
+import Layout from './Layout';
 
-function EmployeeList() {
-  const [contacts, setContacts] = useState([
-    { id: '1', name: 'John Doe', phone: '123-456-7890' },
-    { id: '2', name: 'Jane Smith', phone: '234-567-8901' },
-    { id: '3', name: 'Mike Johnson', phone: '345-678-9012' }
-  ]);
+const ContactItem = ({ contact, onRemove }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', margin: '8px 0' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      {contact.name}
+      {onRemove && <Button variant="contained" color="secondary" onClick={() => onRemove(contact.id)}>Löschen</Button>}
+    </div>
+    <div style={{ display: 'flex', color: 'grey', fontSize: '0.9em' }}>
+      {contact.phone}, FB: {contact.department}
+    </div>
+  </div>
+);
 
-  const [favorites, setFavorites] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+const ContactManagement = () => {
+  const initialContacts = [
+    { id: '1', name: 'John Doe', phone: '123-456-7890', department: 'HR' },
+    { id: '2', name: 'Jane Smith', phone: '987-654-3210', department: 'IT' },
+    { id: '3', name: 'Joe Bloggs', phone: '555-555-5555', department: 'Finance' },
+  ];
 
-  useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
-    if (storedFavorites) {
-      setFavorites(storedFavorites);
-    }
-  }, []);
+  const [contacts, setContacts] = useState(initialContacts);
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = localStorage.getItem('favorites');
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const handleDragEnd = (result) => {
-    if (!result.destination) return;
+    const { source, destination } = result;
 
-    if (result.source.droppableId === 'contacts' && result.destination.droppableId === 'favorites') {
-      const movedContact = contacts.find(contact => contact.id === result.draggableId);
-      setFavorites([...favorites, movedContact]);
-    } else if (result.source.droppableId === 'favorites' && result.destination.droppableId === 'contacts') {
-      setFavorites(favorites.filter(contact => contact.id !== result.draggableId));
+    if (!destination) return;
+
+    if (source.droppableId === 'contacts' && destination.droppableId === 'favorites') {
+      const draggedContact = contacts[source.index];
+      setFavorites([...favorites, draggedContact]);
+      setContacts(contacts.filter((_, index) => index !== source.index));
+    } else if (source.droppableId === 'favorites' && destination.droppableId === 'contacts') {
+      const draggedFavorite = favorites[source.index];
+      setContacts([...contacts, draggedFavorite]);
+      setFavorites(favorites.filter((_, index) => index !== source.index));
     }
   };
 
+  const removeFavorite = (id) => {
+    const removedContact = favorites.find(fav => fav.id === id);
+    setFavorites(favorites.filter(fav => fav.id !== id));
+    setContacts([...contacts, removedContact]);
+  };
+
   return (
-    <Layout headerText={"Mitarbeiterverzeichnis"}>
-      <Container>
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Box border={1} padding={2}>
-                <h2>Favorisierte Kontakte</h2>
-                <Droppable droppableId="favorites">
-                  {(provided) => (
-                    <List {...provided.droppableProps} ref={provided.innerRef}>
-                      {favorites.map((contact, index) => (
-                        <Draggable key={contact.id} draggableId={contact.id} index={index}>
-                          {(provided) => (
-                            <ListItem
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <ListItemText primary={contact.name} secondary={contact.phone} />
-                            </ListItem>
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </List>
-                  )}
-                </Droppable>
-              </Box>
+    <Layout>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Container>
+          <Grid container spacing={2} justifyContent="space-between">
+            <Grid item xs={5}>
+              <Droppable droppableId="favorites">
+                {(provided, snapshot) => (
+                  <Box
+                    ref={provided.innerRef}
+                    sx={{ padding: '16px', border: '1px solid #ccc', backgroundColor: snapshot.isDraggingOver ? '#f0f0f0' : '#fff' }}
+                    {...provided.droppableProps}
+                  >
+                    <h2>Favorisierte Kontakte</h2>
+                    {favorites.map((contact, index) => (
+                      <Draggable key={contact.id} draggableId={contact.id} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <ContactItem contact={contact} onRemove={removeFavorite} />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </Box>
+                )}
+              </Droppable>
             </Grid>
-            <Grid item xs={6}>
-              <Box border={1} padding={2}>
-                <TextField
-                  label="Search"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  value={searchTerm}
-                  onChange={handleSearch}
-                />
-                <Droppable droppableId="contacts">
-                  {(provided) => (
-                    <List {...provided.droppableProps} ref={provided.innerRef}>
-                      {filteredContacts.map((contact, index) => (
-                        <Draggable key={contact.id} draggableId={contact.id} index={index}>
-                          {(provided) => (
-                            <ListItem
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <ListItemText primary={contact.name} secondary={contact.phone} />
-                            </ListItem>
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </List>
-                  )}
-                </Droppable>
-              </Box>
+            <Grid item xs={5}>
+              <Droppable droppableId="contacts">
+                {(provided, snapshot) => (
+                  <Box
+                    ref={provided.innerRef}
+                    sx={{ padding: '16px', border: '1px solid #ccc', backgroundColor: snapshot.isDraggingOver ? '#f0f0f0' : '#fff' }}
+                    {...provided.droppableProps}
+                  >
+                    <h2>Kontaktbuch</h2>
+                    {contacts.map((contact, index) => (
+                      <Draggable key={contact.id} draggableId={contact.id} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <ContactItem contact={contact} />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </Box>
+                )}
+              </Droppable>
             </Grid>
           </Grid>
-        </DragDropContext>
-      </Container>
+        </Container>
+      </DragDropContext>
     </Layout>
   );
-}
+};
 
-export default EmployeeList;
+export default ContactManagement;
