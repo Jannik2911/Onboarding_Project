@@ -41,7 +41,7 @@ const ContactManagement = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterDialogOpen, setFilterDialogOpen] = useState(false);
-  const [filterField, setFilterField] = useState("firstName");
+  const [filterField, setFilterField] = useState("lastName");
   const [filterTerm, setFilterTerm] = useState("");
   const [allContacts, setAllContacts] = useState([]); // Store all contacts separately
 
