@@ -87,7 +87,7 @@ export default function Mitarbeiterverwaltung() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid item xs={12} sm={6} md={2.5}>
                   <TextField
                     fullWidth
                     required
@@ -97,7 +97,7 @@ export default function Mitarbeiterverwaltung() {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={2}>
+                <Grid item xs={12} sm={6} md={2.5}>
                   <TextField
                     fullWidth
                     required

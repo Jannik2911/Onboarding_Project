@@ -12,7 +12,6 @@ import {
   TextField,
   Button,
   Container,
-  Typography,
   Grid,
   Paper,
 } from "@mui/material";
@@ -55,12 +54,14 @@ const Terminmanager = () => {
       start: new Date(2024, 4, 20, 13, 0, 0),
       end: new Date(2024, 4, 20, 14, 0, 0),
       allDay: false,
+      room: "Meeting Room 1",
     },
   ]);
 
   const [title, setTitle] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [room, setRoom] = useState("");
 
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(events));
@@ -73,6 +74,7 @@ const Terminmanager = () => {
       start: new Date(start),
       end: new Date(end),
       allDay: false,
+      room,
     };
     const updatedEvents = [...events, newEvent];
     setEvents(updatedEvents);
@@ -80,6 +82,14 @@ const Terminmanager = () => {
     setTitle("");
     setStart("");
     setEnd("");
+    setRoom("");
+  };
+
+  const handleReset = () => {
+    setTitle("");
+    setStart("");
+    setEnd("");
+    setRoom("");
   };
 
   return (
@@ -90,11 +100,11 @@ const Terminmanager = () => {
             <Paper sx={{ p: 3, boxShadow: 3 }}>
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={12} sm={6} md={3}>
+                  <Grid item xs={12} sm={6} md={4}>
                     <TextField
                       fullWidth
                       required
-                      label="Beschreibung"
+                      label="Titel"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                     />
@@ -103,24 +113,54 @@ const Terminmanager = () => {
                     <TextField
                       fullWidth
                       required
+                      label="Beginn"
                       type="datetime-local"
                       value={start}
                       onChange={(e) => setStart(e.target.value)}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6} md={3}>
                     <TextField
                       fullWidth
                       required
+                      label="Ende"
                       type="datetime-local"
                       value={end}
                       onChange={(e) => setEnd(e.target.value)}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                    <Button type="submit" variant="contained" color="primary">
-                      Ereignis hinzufügen
-                    </Button>
+                  <Grid item xs={12} sm={6} md={2}>
+                    <TextField
+                      fullWidth
+                      label="Raum"
+                      value={room}
+                      onChange={(e) => setRoom(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={5}>
+                    <Box display="flex" justifyContent="flex-start" gap={2}>
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        color="secondary"
+                        onClick={handleReset}
+                      >
+                        Zurücksetzen
+                      </Button>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                      >
+                        Ereignis hinzufügen
+                      </Button>
+                    </Box>
                   </Grid>
                 </Grid>
               </form>
@@ -146,6 +186,19 @@ const Terminmanager = () => {
                   style={{ height: "100%" }}
                   culture="de"
                   messages={messages}
+                  components={{
+                    event: ({ event }) => (
+                      <span>
+                        <strong>{event.title}</strong>
+                        {event.room && (
+                          <>
+                            <br />
+                            <small>{event.room}</small>
+                          </>
+                        )}
+                      </span>
+                    ),
+                  }}
                 />
               </Box>
             </Paper>
