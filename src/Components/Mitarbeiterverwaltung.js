@@ -20,6 +20,7 @@ export default function Mitarbeiterverwaltung() {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [fb, setFb] = useState("");
 
   const [mitarbeiterListe, setMitarbeiterListe] = useState(() => {
@@ -32,12 +33,13 @@ export default function Mitarbeiterverwaltung() {
   }, [mitarbeiterListe]);
 
   const handleClick = () => {
-    if (name && lastname && email && fb) {
-      const newMitarbeiter = { name, lastname, email, fb };
+    if (name && lastname && email && fb && phone) {
+      const newMitarbeiter = { name, lastname, email, fb, phone };
       setMitarbeiterListe([...mitarbeiterListe, newMitarbeiter]);
       setName("");
       setLastname("");
       setEmail("");
+      setPhone("");
       setFb("");
     }
   };
@@ -55,7 +57,7 @@ export default function Mitarbeiterverwaltung() {
           <Grid item xs={12}>
             <Paper sx={{ p: 3, boxShadow: 3 }}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid item xs={12} sm={6} md={2}>
                   <TextField
                     fullWidth
                     required
@@ -65,7 +67,7 @@ export default function Mitarbeiterverwaltung() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid item xs={12} sm={6} md={2}>
                   <TextField
                     fullWidth
                     required
@@ -86,6 +88,16 @@ export default function Mitarbeiterverwaltung() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="phone"
+                    label="Telefonnummer"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={2}>
                   <TextField
                     fullWidth
                     required
@@ -128,7 +140,7 @@ export default function Mitarbeiterverwaltung() {
                   >
                     <ListItemText
                       primary={`${mitarbeiter.name} ${mitarbeiter.lastname}`}
-                      secondary={`${mitarbeiter.email}, Fachbereich: ${mitarbeiter.fb}`}
+                      secondary={`${mitarbeiter.email}, Telefonnummer: ${mitarbeiter.phone}, Fachbereich: ${mitarbeiter.fb}`}
                     />
                   </ListItem>
                 ))}
