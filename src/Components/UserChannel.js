@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Box, TextField, Button, Typography, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Paper,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 const UserChannel = () => {
@@ -37,7 +48,7 @@ const UserChannel = () => {
   const handleSend = () => {
     if (input.trim() !== "" && selectedEmployee !== "") {
       const newMessage = { id: Date.now(), text: input, sender: "user" };
-      setMessages(prevMessages => {
+      setMessages((prevMessages) => {
         const employeeMessages = prevMessages[selectedEmployee.id] || [];
         return {
           ...prevMessages,
@@ -59,9 +70,10 @@ const UserChannel = () => {
   return (
     <Box sx={{ height: "inherit", display: "flex", flexDirection: "column" }}>
       <Box sx={{ flexGrow: 1, overflow: "auto", p: 2 }}>
-        {selectedEmployee && messages[selectedEmployee.id]?.map((message) => (
-          <Message key={message.id} message={message} />
-        ))}
+        {selectedEmployee &&
+          messages[selectedEmployee.id]?.map((message) => (
+            <Message key={message.id} message={message} />
+          ))}
       </Box>
       <Box sx={{ p: 1, backgroundColor: "background.default", mt: "auto" }}>
         <Grid container spacing={1} alignItems="center">
@@ -89,11 +101,11 @@ const UserChannel = () => {
               value={input}
               onChange={handleInputChange}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   handleSend();
                 }
               }}
-              sx={{ height: '40px' }}
+              sx={{ height: "40px" }}
             />
           </Grid>
           <Grid item xs={2}>
@@ -105,14 +117,19 @@ const UserChannel = () => {
               endIcon={<SendIcon />}
               onClick={handleSend}
               disabled={isSendDisabled}
-              sx={{ height: '40px' }}
+              sx={{ height: "40px" }}
             >
               Senden
             </Button>
           </Grid>
         </Grid>
         {!selectedEmployee && (
-          <Typography variant="body2" color="error" style={{ textAlign: "left" }}>
+          <Typography
+            variant="body2"
+            color="error"
+            style={{ textAlign: "left" }}
+            sx={{ mt: 1 }}
+          >
             Bitte Chat-Partner auswählen
           </Typography>
         )}
@@ -133,7 +150,7 @@ const Message = ({ message }) => {
       <Paper
         sx={{
           p: 1,
-          maxWidth: '70%',
+          maxWidth: "70%",
           borderRadius: 16,
           boxShadow: 1,
           backgroundColor: message.sender === "user" ? "#CCCCCC" : "#FFFFFF",
