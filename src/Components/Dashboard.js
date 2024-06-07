@@ -34,6 +34,7 @@ export default function Dashboard() {
                   display: "flex",
                   flexDirection: "column",
                   height: "100%",
+                  overflow: "auto",
                 }}
               >
                 <Typography component="h1" variant="h6" color="inherit">
