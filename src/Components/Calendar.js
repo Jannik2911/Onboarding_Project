@@ -20,25 +20,28 @@ const CalendarContainer = styled("div")({
   margin: "0 auto",
 });
 
-function hasEvent(events, date) {
-  return events.some(
-    (event) =>
-      dayjs(event.start).isSame(date, "day") ||
-      (dayjs(event.start).isBefore(date, "day") &&
-        dayjs(event.end).isAfter(date, "day"))
-  );
+function getEventDays(events) {
+  let eventDays = [];
+  events.forEach(event => {
+    let current = dayjs(event.start);
+    const end = dayjs(event.end);
+    while (current.isBefore(end) || current.isSame(end, 'day')) {
+      eventDays.push(current.format('YYYY-MM-DD'));
+      current = current.add(1, 'day');
+    }
+  });
+  return eventDays;
 }
 
 function ServerDay(props) {
   const {
-    highlightedDays = [],
+    eventDays = [],
     day,
     outsideCurrentMonth,
-    events,
     ...other
   } = props;
 
-  const isSelected = !outsideCurrentMonth && hasEvent(events, day);
+  const isSelected = !outsideCurrentMonth && eventDays.includes(day.format('YYYY-MM-DD'));
 
   return (
     <Badge
@@ -57,8 +60,7 @@ function ServerDay(props) {
           alignItems: "center",
           justifyContent: "center",
           fontSize: "1.0rem", // Increase font size for day numbers
-        }
-        }
+        }}
       />
     </Badge>
   );
@@ -85,6 +87,8 @@ export default function DateCalendarServerRequest() {
       requestAbortController.current.abort();
     }
   };
+
+  const eventDays = getEventDays(events);
 
   return (
     <CalendarContainer>
@@ -127,14 +131,7 @@ export default function DateCalendarServerRequest() {
           }}
           renderLoading={() => <DayCalendarSkeleton />}
           slots={{
-            day: (props) => <ServerDay {...props} events={events} />,
-          }}
-          slotProps={{
-            day: {
-              highlightedDays: events.map((event) =>
-                dayjs(event.start).date()
-              ),
-            },
+            day: (props) => <ServerDay {...props} eventDays={eventDays} />,
           }}
           firstDayOfWeek={1} // Start week on Monday
         />
