@@ -58,14 +58,6 @@ const SearchComponent = ({ source, icon }) => {
     setOpen(false);
   };
 
-  const handleActionClick = () => {
-    console.log("Ereignis erstellen");
-  };
-
-  const handleTaskClick = () => {
-    console.log("Ereignis erstellen");
-  };
-
   useEffect(() => {
     const filtered = arr?.filter((element) => {
       return element.lastName.toLowerCase().includes(searchTerm.toLowerCase());
@@ -160,20 +152,15 @@ const SearchComponent = ({ source, icon }) => {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">
-            Aktion auswählen für {selectedItem?.name} aus Fachbereich:{" "}
-            {selectedItem?.fb}
-          </h2>
-          <Button variant="contained" onClick={handleActionClick}>
-            Ereignis erstellen
-          </Button>
-          <Button
-            sx={{ mt: "15px" }}
-            variant="contained"
-            onClick={handleTaskClick}
-          >
-            Aufgabe hinzufügen
-          </Button>
+          <Typography variant="h6" id="parent-modal-title">
+            Informationen über{" "}
+            {`${selectedItem?.firstName} ${selectedItem?.lastName}`}
+          </Typography>
+          <br />
+          {`Telefon: `}
+          {<a href={`tel:${selectedItem?.phone}`}>{selectedItem?.phone}</a>}
+          <br />
+          {`Fachbereich: ${selectedItem?.department}`}
         </Box>
       </Modal>
     </div>
