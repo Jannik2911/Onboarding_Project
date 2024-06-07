@@ -16,15 +16,68 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Layout from "./Layout";
-import dayjs from "dayjs";
 
-function TodoList() {
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+const BasicSelect = ({ mitarbeiter, setMid }) => {
+  const [item, setItem] = useState("");
+
+  const handleChange = (event) => {
+    const selectedName = event.target.value;
+    setItem(selectedName);
+    setMid(`${event.target.value.firstName} ${event.target.value.lastName}`);
+  };
+
+  return (
+    <Box sx={{ minWidth: 120, mt: 1 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Mitarbeiter</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={item}
+          label="Mitarbeiter"
+          onChange={handleChange}
+          sx={{ textAlign: "left" }}
+        >
+          {mitarbeiter?.map((value) => (
+            <MenuItem key={value.id} value={value} sx={{ textAlign: "left" }}>
+              {`${value.firstName} ${value.lastName}`}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
+  );
+};
+
+const TodoList = () => {
   const [frist, setFrist] = useState("");
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
   const [input, setInput] = useState("");
+  const [mid, setMid] = useState("");
+
+  const [mitarbeiter, setMitarbeiter] = useState([]);
+
+  useEffect(() => {
+    const fetchMitarbeiter = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/names");
+        const data = await response.json();
+        setMitarbeiter(data);
+      } catch (error) {
+        console.error("Error fetching mitarbeiter data:", error);
+      }
+    };
+
+    fetchMitarbeiter();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -38,9 +91,11 @@ function TodoList() {
           text: input,
           completed: false,
           f: new Date(frist).toLocaleString("de-DE"),
+          mitarbeiter: mid,
         },
       ]);
       setInput("");
+      setMid("");
       setFrist("");
     }
   };
@@ -97,6 +152,7 @@ function TodoList() {
                 sx={{ mt: 1 }}
                 onChange={(e) => setFrist(e.target.value)}
               />
+              <BasicSelect mitarbeiter={mitarbeiter} setMid={setMid} />
               <Button
                 onClick={addTask}
                 variant="contained"
@@ -151,15 +207,23 @@ function TodoList() {
                         </span>
                       }
                       secondary={
-                        task.completed ? (
-                          `Aufgabe erledigt am ${task.completedAt}`
-                        ) : new Date().toLocaleString("de-DE") < task.f ? (
-                          `Zu erledigen bis zum ${task.f}`
-                        ) : (
-                          <span style={{ color: "red" }}>
-                            {`Zu erledigen bis zum ${task.f}`}
-                          </span>
-                        )
+                        <>
+                          {task.mitarbeiter && (
+                            <Typography
+                              variant="body2"
+                              color="textSecondary"
+                            >{`Zugewiesen an: ${task.mitarbeiter}`}</Typography>
+                          )}
+                          {task.completed ? (
+                            `Aufgabe erledigt am ${task.completedAt}`
+                          ) : /*new Date() < new Date(task.f)*/ true ? (
+                            `Zu erledigen bis zum ${task.f}`
+                          ) : (
+                            <span style={{ color: "red" }}>
+                              {`Zu erledigen bis zum ${task.f}`}
+                            </span>
+                          )}
+                        </>
                       }
                     />
                     <IconButton
@@ -178,6 +242,6 @@ function TodoList() {
       </Container>
     </Layout>
   );
-}
+};
 
 export default TodoList;

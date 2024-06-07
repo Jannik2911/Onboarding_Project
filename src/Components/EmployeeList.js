@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Button, Container, Grid, Box, Menu, MenuItem, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField as MUITextField, Select, InputLabel, FormControl } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  Box,
+  Menu,
+  MenuItem,
+  Divider,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField as MUITextField,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import Layout from "./Layout";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
@@ -112,9 +129,9 @@ const ContactManagement = () => {
       setContacts(allContacts); // Reset to all contacts if filter term is cleared
     } else {
       const filtered = allContacts.filter((element) => {
-        return (
-          element[filterField].toLowerCase().includes(filterTerm.toLowerCase())
-        );
+        return element[filterField]
+          .toLowerCase()
+          .includes(filterTerm.toLowerCase());
       });
       setContacts(filtered);
     }
@@ -155,25 +172,33 @@ const ContactManagement = () => {
   };
 
   const sortByFirstNameAZ = () => {
-    const sortedContacts = [...contacts].sort((a, b) => a.firstName.localeCompare(b.firstName));
+    const sortedContacts = [...contacts].sort((a, b) =>
+      a.firstName.localeCompare(b.firstName)
+    );
     setContacts(sortedContacts);
     handleSortClose();
   };
 
   const sortByFirstNameZA = () => {
-    const sortedContacts = [...contacts].sort((a, b) => b.firstName.localeCompare(a.firstName));
+    const sortedContacts = [...contacts].sort((a, b) =>
+      b.firstName.localeCompare(a.firstName)
+    );
     setContacts(sortedContacts);
     handleSortClose();
   };
 
   const sortByLastNameAZ = () => {
-    const sortedContacts = [...contacts].sort((a, b) => a.lastName.localeCompare(b.lastName));
+    const sortedContacts = [...contacts].sort((a, b) =>
+      a.lastName.localeCompare(b.lastName)
+    );
     setContacts(sortedContacts);
     handleSortClose();
   };
 
   const sortByLastNameZA = () => {
-    const sortedContacts = [...contacts].sort((a, b) => b.lastName.localeCompare(a.lastName));
+    const sortedContacts = [...contacts].sort((a, b) =>
+      b.lastName.localeCompare(a.lastName)
+    );
     setContacts(sortedContacts);
     handleSortClose();
   };
@@ -181,9 +206,9 @@ const ContactManagement = () => {
   return (
     <Layout headerText={"Kontaktbuch"}>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={2} justifyContent="space-between">
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <Droppable droppableId="favorites">
                 {(provided, snapshot) => (
                   <Box
@@ -195,7 +220,7 @@ const ContactManagement = () => {
                         ? "#f0f0f0"
                         : "#fff",
                       maxHeight: "85vh", // Adjust the height as needed
-                      overflow: "auto"
+                      overflow: "auto",
                     }}
                     {...provided.droppableProps}
                   >
@@ -225,7 +250,7 @@ const ContactManagement = () => {
                 )}
               </Droppable>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <Droppable droppableId="contacts">
                 {(provided, snapshot) => (
                   <Box
@@ -237,7 +262,7 @@ const ContactManagement = () => {
                         ? "#f0f0f0"
                         : "#fff",
                       maxHeight: "85vh", // Adjust the height as needed
-                      overflow: "auto"
+                      overflow: "auto",
                     }}
                     {...provided.droppableProps}
                   >
@@ -277,10 +302,18 @@ const ContactManagement = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleSortClose}
                       >
-                        <MenuItem onClick={sortByLastNameAZ}>Name (a-z)</MenuItem>
-                        <MenuItem onClick={sortByLastNameZA}>Name (z-a)</MenuItem>
-                        <MenuItem onClick={sortByFirstNameAZ}>Vorname (a-z)</MenuItem>
-                        <MenuItem onClick={sortByFirstNameZA}>Vorname (z-a)</MenuItem>
+                        <MenuItem onClick={sortByLastNameAZ}>
+                          Name (a-z)
+                        </MenuItem>
+                        <MenuItem onClick={sortByLastNameZA}>
+                          Name (z-a)
+                        </MenuItem>
+                        <MenuItem onClick={sortByFirstNameAZ}>
+                          Vorname (a-z)
+                        </MenuItem>
+                        <MenuItem onClick={sortByFirstNameZA}>
+                          Vorname (z-a)
+                        </MenuItem>
                       </Menu>
                     </Box>
                     {contacts?.map((contact, index) => (

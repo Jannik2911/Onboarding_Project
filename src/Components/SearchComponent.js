@@ -33,10 +33,22 @@ const SearchComponent = ({ source, icon }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [open, setOpen] = useState(false);
-  const [arr, setArr] = useState(() => {
-    const saved = localStorage.getItem(source ? source : "mitarbeiter");
-    return saved ? JSON.parse(saved) : [];
-  });
+
+  const [arr, setArr] = useState([]);
+
+  useEffect(() => {
+    const fetchMitarbeiter = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/names");
+        const data = await response.json();
+        setArr(data);
+      } catch (error) {
+        console.error("Error fetching mitarbeiter data:", error);
+      }
+    };
+
+    fetchMitarbeiter();
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -55,7 +67,7 @@ const SearchComponent = ({ source, icon }) => {
 
   useEffect(() => {
     const filtered = arr?.filter((element) => {
-      return element.lastname.toLowerCase().includes(searchTerm.toLowerCase());
+      return element.lastName.toLowerCase().includes(searchTerm.toLowerCase());
     });
     setFilteredArr(filtered);
   }, [searchTerm, arr]);
@@ -106,7 +118,7 @@ const SearchComponent = ({ source, icon }) => {
       >
         {filteredArr?.map((value) => (
           <Box
-            key={value.name}
+            key={value.id}
             sx={{
               width: "100%", // Inherit the width of the list container
               border: "1px solid grey",
@@ -134,7 +146,7 @@ const SearchComponent = ({ source, icon }) => {
               }
             >
               <ListItemText
-                primary={`${value.name}` + " " + `${value.lastname}`}
+                primary={`${value.firstName}` + " " + `${value.lastName}`}
               />
             </ListItem>
           </Box>

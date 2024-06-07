@@ -62,7 +62,7 @@ export default function CheckList() {
                 secondary={
                   task.completed ? (
                     `Aufgabe erledigt am ${task.completedAt}`
-                  ) : new Date().toLocaleString("de-DE") < task.f ? (
+                  ) : /*new Date() < new Date(task.f)*/ true ? (
                     `Zu erledigen bis zum ${task.f}`
                   ) : (
                     <span style={{ color: "red" }}>
