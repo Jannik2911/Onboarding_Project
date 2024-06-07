@@ -10,6 +10,7 @@ const UserChannel = () => {
     const savedMessages = localStorage.getItem("messages");
     return savedMessages ? JSON.parse(savedMessages) : {};
   });
+  const [isSendDisabled, setIsSendDisabled] = useState(true);
 
   useEffect(() => {
     const fetchMitarbeiter = async () => {
@@ -28,6 +29,10 @@ const UserChannel = () => {
   useEffect(() => {
     localStorage.setItem("messages", JSON.stringify(messages));
   }, [messages]);
+
+  useEffect(() => {
+    setIsSendDisabled(!selectedEmployee);
+  }, [selectedEmployee]);
 
   const handleSend = () => {
     if (input.trim() !== "" && selectedEmployee !== "") {
@@ -83,6 +88,11 @@ const UserChannel = () => {
               placeholder="Neue Nachricht senden"
               value={input}
               onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSend();
+                }
+              }}
               sx={{ height: '40px' }}
             />
           </Grid>
@@ -94,12 +104,18 @@ const UserChannel = () => {
               variant="contained"
               endIcon={<SendIcon />}
               onClick={handleSend}
+              disabled={isSendDisabled}
               sx={{ height: '40px' }}
             >
               Senden
             </Button>
           </Grid>
         </Grid>
+        {!selectedEmployee && (
+          <Typography variant="body2" color="error" style={{ textAlign: "left" }}>
+            Bitte Chat-Partner auswählen
+          </Typography>
+        )}
       </Box>
     </Box>
   );
@@ -118,9 +134,9 @@ const Message = ({ message }) => {
         sx={{
           p: 1,
           maxWidth: '70%',
-          borderRadius: 2,
+          borderRadius: 16,
           boxShadow: 1,
-          backgroundColor: message.sender === "user" ? "#DCF8C6" : "#FFFFFF",
+          backgroundColor: message.sender === "user" ? "#CCCCCC" : "#FFFFFF",
         }}
       >
         <Typography variant="body2" sx={{ wordBreak: "break-word" }}>
