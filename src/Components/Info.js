@@ -9,7 +9,10 @@ import {
   Divider,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Link from "@mui/material/Link";
+
+
+import "../App.css";
+
 
 const faqs = [
   {
@@ -26,22 +29,15 @@ const faqs = [
     title: "Pausenregelung",
     details: [
       "Es ist eine Mittagspause von 30 Minuten beziehungsweise von 60 Minuten",
-      "(nur bei Minderjährigen) vorgeschrieben. Die Mittagspause kann ab",
-      "11:30 Uhr flexibel gelegt werden.",
+      "(nur bei Minderjährigen) vorgeschrieben. Die Mittagspause kann ab 11:30 Uhr flexibel gelegt werden.",
     ],
   },
   {
     title: "Kantine",
     details: [
-      "11:30 Uhr - 13:30 Uhr",
+      "Öffnungszeiten: 11:30 Uhr - 13:30 Uhr",
       <br />,
-      "Informationen über den aktuellen Speiseplan finden Sie im Intranet. Dort ist eine Seite",
-      "im Internet verlinkt.",
-      "Morgens (von 07:30 Uhr bis 09:00 Uhr) kann man in der Kantine auch belegte Brötchen,",
-      "Kakao, etc. kaufen.",
-      "Im Vorraum der Kantine stehen Süßigkeitenautomaten und ein Getränkeautomat. Weitere Getränkeautomaten sind bei den Übergängen zum Erweiterungsbau aufgestellt",
-      "(hier nur Bargeldzahlung möglich).",
-      " Während der Mittagspause ist dort auch unser Café P geöffnet (sieht aus wie eine Baustelle, ist aber keine!), in dem Kaffee, Kuchen und Süßes verkauft werden",
+      "Informationen über den aktuellen Speiseplan finden Sie im Intranet. Dort ist eine Seite im Internet verlinkt. Morgens (von 07:30 Uhr bis 09:00 Uhr) kann man in der Kantine auch belegte Brötchen, Kakao, etc. kaufen. Im Vorraum der Kantine stehen Süßigkeitenautomaten und ein Getränkeautomat. Weitere Getränkeautomaten sind bei den Übergängen zum Erweiterungsbau aufgestellt (hier nur Bargeldzahlung möglich). Während der Mittagspause ist dort auch unser Café P geöffnet (sieht aus wie eine Baustelle, ist aber keine!), in dem Kaffee, Kuchen und Süßes verkauft werden.",
     ],
   },
   {
@@ -65,42 +61,25 @@ const faqs = [
   {
     title: "Jugendaufenthaltsraum",
     details: [
-      "Dies ist ein Pausenraum für alle Nachwuchskräfte, ausgestattet mit einer kleinen Sofasitzecke, mehreren Tischen und Stühlen.",
-      "Bezüglich der Lage des Jugendaufenthaltsraumes wird auf Seite 5 dieser Broschüre verwiesen.",
+      "Dies ist ein Pausenraum für alle Nachwuchskräfte, ausgestattet mit einer kleinen Sofasitzecke, mehreren Tischen und Stühlen. Bezüglich der Lage des Jugendaufenthaltsraumes wird auf Seite 5 dieser Broschüre verwiesen.",
     ],
   },
   {
     title: "Teeküchen",
     details: [
-      "Die sogenannten Teeküchen befinden sich jeweils am Ende der Flügel (Seite 5) und",
-      "können ebenfalls für die Pausen genutzt werden. In jeder Teeküche steht ein Kühlschrank, welcher für die Lagerung von Lebensmitteln genutzt werden darf.",
-      "Die Lebensmittel sind mit Ihrem Namen und der aktuellen Abschnittsnummer zu versehen, ansonsten werden diese entsorgt.",
-      "Bitte beachten Sie, dass Sie Ihre Lebensmittel beim Wechsel in einen anderen",
-      "Abschnitt oder in die HSPV/Berufskolleg aus dem Kühlschrank entfernen!",
+      "Die sogenannten Teeküchen befinden sich jeweils am Ende der Flügel (Seite 5) und können ebenfalls für die Pausen genutzt werden. In jeder Teeküche steht ein Kühlschrank, welcher für die Lagerung von Lebensmitteln genutzt werden darf. Die Lebensmittel sind mit Ihrem Namen und der aktuellen Abschnittsnummer zu versehen, ansonsten werden diese entsorgt. Bitte beachten Sie, dass Sie Ihre Lebensmittel beim Wechsel in einen anderen Abschnitt oder in die HSPV/Berufskolleg aus dem Kühlschrank entfernen!",
     ],
   },
   {
     title: "Kaffeeautomaten im Ausbildungsreferat",
     details: [
-      "In jeder Teeküche befinden sich zwei Kaffeemaschinen. Es bietet sich an, sich mit mehreren Leuten zusammenzuschließen, um Kaffee zu kochen.",
-      "Dann werden die Kaffeemaschinen nicht für einzelne Tassen in Betrieb genommen. Die Filter stehen zur Verfügung. Das Kaffeepulver muss selbst mitgebracht werden.",
-      "Für einzelne Tassen Kaffee befindet sich in der Teeküche gegenüber des Jugendaufenthaltsraumes ein vollautomatischer Kaffeeautomat. ",
-      "Dort sind verschiedene Getränke wie Cappuccino, Kaffee, Latte Macchiato und Espresso gegen kleines Geld (jeweils 0,50 Euro) erhältlich.",
-      "Heißes Wasser für Tee ist an diesem Automaten ebenfalls erhältlich und kostenfrei!",
+      "In jeder Teeküche befinden sich zwei Kaffeemaschinen. Es bietet sich an, sich mit mehreren Leuten zusammenzuschließen, um Kaffee zu kochen. Dann werden die Kaffeemaschinen nicht für einzelne Tassen in Betrieb genommen. Die Filter stehen zur Verfügung. Das Kaffeepulver muss selbst mitgebracht werden. Für einzelne Tassen Kaffee befindet sich in der Teeküche gegenüber des Jugendaufenthaltsraumes ein vollautomatischer Kaffeeautomat. Dort sind verschiedene Getränke wie Cappuccino, Kaffee, Latte Macchiato und Espresso gegen kleines Geld (jeweils 0,50 Euro) erhältlich. Heißes Wasser für Tee ist an diesem Automaten ebenfalls erhältlich und kostenfrei!",
     ],
   },
   {
     title: "Krankmeldung",
     details: [
-      "Wenn Sie morgens feststellen, dass Sie arbeits- beziehungsweise dienstunfähig sind,",
-      "rufen Sie bitte sofort Ihre Abschnittsleiterin/Ihren Abschnittsleiter an (vor Beginn der Kernarbeitszeit, also vor 09:00Uhr)!",
-      "Wichtig bei Sozifas: Bitte angeben, ob mit oder ohne AU-Attest.",
-      "Die Krankmeldung sollte vorrangig bei dem eigenen Ausbilder erfolgen. Sollte dieser nicht erreichbar sein, so melden Sie sich bitte bei lhrem Abschnittsleiter.",
-      "Sie sind verpflichtet, spätestens ab dem vierten Krankheitstage eine entsprechende Bescheinigung lhrer Ärztin/Ihres Arztes vorzulegen.",
-      "Bitte beachten Sie hierbei, dass das Wochenende bei den Krankheitstagen berücksichtigt wird. Sollten Sie beispielsweise ab freitags arbeits -beziehungs",
-      "weise dienstunfähig sein, so müssen Sie spätestens am Montag eine Arbeitsunfähigkeits-/Dienstunfähigkeitsbescheinigung vorlegen.",
-      "Bitte melden Sie sich nach Ende Ihrer Arbeitsunfähigkeit am ersten Arbeitstag morgens",
-      "bei Frau XXX oder Frau XXX (Referatssekretariat) wieder gesund",
+      "Wenn Sie morgens feststellen, dass Sie arbeits- beziehungsweise dienstunfähig sind, rufen Sie bitte sofort Ihre Abschnittsleiterin/Ihren Abschnittsleiter an (vor Beginn der Kernarbeitszeit, also vor 09:00Uhr)! Wichtig bei Sozifas: Bitte angeben, ob mit oder ohne AU-Attest. Die Krankmeldung sollte vorrangig bei dem eigenen Ausbilder erfolgen. Sollte dieser nicht erreichbar sein, so melden Sie sich bitte bei lhrem Abschnittsleiter. Sie sind verpflichtet, spätestens ab dem vierten Krankheitstage eine entsprechende Bescheinigung lhrer Ärztin/Ihres Arztes vorzulegen. Bitte beachten Sie hierbei, dass das Wochenende bei den Krankheitstagen berücksichtigt wird. Sollten Sie beispielsweise ab freitags arbeits bzw. dienstunfähig sein, so müssen Sie spätestens am Montag eine Arbeitsunfähigkeits-/Dienstunfähigkeitsbescheinigung vorlegen. Bitte melden Sie sich nach Ende Ihrer Arbeitsunfähigkeit am ersten Arbeitstag morgens bei Frau XXX oder Frau XXX (Referatssekretariat) wieder gesund.",
     ],
   },
 ];
@@ -119,29 +98,34 @@ const Info = () => {
             </AccordionSummary>
             <Divider />
             <AccordionDetails>
-              {Array.isArray(faq.details) ? (
-                faq.details.map((detail, detailIndex) =>
-                  typeof detail === "string" ? (
-                    <Typography key={detailIndex}>{detail}</Typography>
-                  ) : (
-                    <Typography key={detailIndex}>
-                      {detail.name && <div>{detail.name}</div>}
-                      {detail.phone && (
-                        <div>
-                          Telefon:{" "}
-                          <a href={`tel:${detail.phone}`}>{detail.phone}</a>
-                        </div>
-                      )}
-                      {detail.email && <div>Email: {detail.email}</div>}
-                      {detail.days && <div>{detail.days}</div>}
-                      {detail.hours && <div>{detail.hours}</div>}
-                    </Typography>
-                  )
-                )
-              ) : (
-                <Typography>{faq.details}</Typography>
-              )}
-            </AccordionDetails>
+  {Array.isArray(faq.details) ? (
+    faq.details.map((detail, detailIndex) =>
+      typeof detail === "string" ? (
+        <Typography key={detailIndex} className="faq-text">
+          {detail}
+        </Typography>
+      ) : (
+        <Typography key={detailIndex} className="faq-text">
+          {detail.name && <div>{detail.name}</div>}
+          {detail.phone && (
+            <div>
+              Telefon:{" "}
+              <a href={`tel:${detail.phone}`}>{detail.phone}</a>
+            </div>
+          )}
+          {detail.email && <div>Email: {detail.email}</div>}
+          {detail.days && <div>{detail.days}</div>}
+          {detail.hours && <div>{detail.hours}</div>}
+        </Typography>
+      )
+    )
+  ) : (
+    <Typography className="faq-text">
+      {faq.details}
+    </Typography>
+  )}
+</AccordionDetails>
+
           </Accordion>
         ))}
       </Container>
