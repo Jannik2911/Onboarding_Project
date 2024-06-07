@@ -289,7 +289,6 @@ export default function Layout({ children, headerText }) {
           <Divider />
           <List component="nav">
             <MainListItems />
-            <Divider sx={{ my: 1 }} />
           </List>
           <Box sx={{ flexGrow: 1 }} />
           <Box

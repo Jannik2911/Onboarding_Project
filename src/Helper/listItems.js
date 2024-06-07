@@ -13,6 +13,7 @@ import { useContext } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Typography } from "@mui/material";
+import Divider from "@mui/material/Divider";
 //import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 export default function MainListItems() {
@@ -38,17 +39,7 @@ export default function MainListItems() {
         </ListItemIcon>
         <ListItemText primary="Aufgaben" onClick={() => open("/tasks")} />
       </ListItemButton>
-      {isAdmin && (
-        <ListItemButton>
-          <ListItemIcon>
-            <PeopleIcon onClick={() => open("/mitarbeiterverwaltung")} />
-          </ListItemIcon>
-          <ListItemText
-            primary="Mitarbeiterverwaltung"
-            onClick={() => open("/mitarbeiterverwaltung")}
-          />
-        </ListItemButton>
-      )}
+
       {isAdmin && (
         <ListItemButton>
           <ListItemIcon>
@@ -78,6 +69,14 @@ export default function MainListItems() {
           onClick={() => open("/ablaufplan")}
         />
       </ListItemButton>
+
+      <ListItemButton>
+        <ListItemIcon>
+          <InfoIcon onClick={() => open("/info")} />
+        </ListItemIcon>
+        <ListItemText primary="Informationen" onClick={() => open("/info")} />
+      </ListItemButton>
+      <Divider />
       {isAdmin && (
         <ListItemButton>
           <ListItemIcon>
@@ -89,12 +88,17 @@ export default function MainListItems() {
           />
         </ListItemButton>
       )}
-      <ListItemButton>
-        <ListItemIcon>
-          <InfoIcon onClick={() => open("/info")} />
-        </ListItemIcon>
-        <ListItemText primary="Informationen" onClick={() => open("/info")} />
-      </ListItemButton>
+      {isAdmin && (
+        <ListItemButton>
+          <ListItemIcon>
+            <PeopleIcon onClick={() => open("/mitarbeiterverwaltung")} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Mitarbeiterverwaltung"
+            onClick={() => open("/mitarbeiterverwaltung")}
+          />
+        </ListItemButton>
+      )}
     </React.Fragment>
   );
 }

@@ -23,14 +23,21 @@ export default function Mitarbeiterverwaltung() {
   const [phone, setPhone] = useState("");
   const [fb, setFb] = useState("");
 
-  const [mitarbeiterListe, setMitarbeiterListe] = useState(() => {
-    const saved = localStorage.getItem("mitarbeiter");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [mitarbeiterListe, setMitarbeiterListe] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("mitarbeiter", JSON.stringify(mitarbeiterListe));
-  }, [mitarbeiterListe]);
+    const fetchMitarbeiter = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/names");
+        const data = await response.json();
+        setMitarbeiterListe(data);
+      } catch (error) {
+        console.error("Error fetching mitarbeiter data:", error);
+      }
+    };
+
+    fetchMitarbeiter();
+  }, []);
 
   const handleClick = () => {
     if (name && lastname && email && fb && phone) {
@@ -121,9 +128,9 @@ export default function Mitarbeiterverwaltung() {
                 Mitarbeiterliste
               </Typography>
               <List>
-                {mitarbeiterListe.map((mitarbeiter, index) => (
+                {mitarbeiterListe.map((mitarbeiter) => (
                   <ListItem
-                    key={index}
+                    key={mitarbeiter.id}
                     sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
                     style={{
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -132,15 +139,15 @@ export default function Mitarbeiterverwaltung() {
                       <IconButton
                         edge="end"
                         aria-label="delete"
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(mitarbeiter.id)}
                       >
                         <DeleteIcon />
                       </IconButton>
                     }
                   >
                     <ListItemText
-                      primary={`${mitarbeiter.name} ${mitarbeiter.lastname}`}
-                      secondary={`${mitarbeiter.email}, Telefonnummer: ${mitarbeiter.phone}, Fachbereich: ${mitarbeiter.fb}`}
+                      primary={`${mitarbeiter.firstName} ${mitarbeiter.lastName}`}
+                      secondary={`Telefonnummer: ${mitarbeiter.phone}, Fachbereich: ${mitarbeiter.department}`}
                     />
                   </ListItem>
                 ))}
