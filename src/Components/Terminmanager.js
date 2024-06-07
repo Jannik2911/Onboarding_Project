@@ -248,7 +248,7 @@ const Terminmanager = () => {
           </Button>
           <Button
             onClick={() => handleDelete(selectedEvent)}
-            color="secondary"
+            sx={{ color: 'red' }}
             startIcon={<DeleteIcon />}
           >
             Löschen
