@@ -23,14 +23,14 @@ const UserChannel = () => {
   };
 
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ height: "inherit", display: "flex", flexDirection: "column" }}>
       <Box sx={{ flexGrow: 1, overflow: "auto", p: 2 }}>
         {messages.map((message) => (
           <Message key={message.id} message={message} />
         ))}
       </Box>
       <Box sx={{ p: 2, backgroundColor: "background.default" }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={10}>
             <TextField
               fullWidth
@@ -39,7 +39,7 @@ const UserChannel = () => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={2} mb={1}>
             <Button
               fullWidth
               size="large"
@@ -48,7 +48,7 @@ const UserChannel = () => {
               endIcon={<SendIcon />}
               onClick={handleSend}
             >
-              Send
+              Senden
             </Button>
           </Grid>
         </Grid>

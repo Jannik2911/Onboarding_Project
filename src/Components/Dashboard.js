@@ -9,6 +9,7 @@ import DateCalendarReferenceDate from "./Calendar";
 import CheckList from "./CheckList";
 import SearchComponent from "./SearchComponent";
 import Layout from "./Layout";
+import UserChannel from "./UserChannel";
 
 const defaultTheme = createTheme();
 
@@ -55,7 +56,7 @@ export default function Dashboard() {
                 <DateCalendarReferenceDate />
               </Paper>
             </Box>
-            <Box sx={{ gridColumn: "span 12" }}>
+            <Box sx={{ gridColumn: { xs: "span 12", md: "span 6" } }}>
               <Paper
                 sx={{
                   p: 2,
@@ -65,6 +66,18 @@ export default function Dashboard() {
                 }}
               >
                 <SearchComponent />
+              </Paper>
+            </Box>
+            <Box sx={{ gridColumn: { xs: "span 12", md: "span 6" } }}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+              >
+                <UserChannel />
               </Paper>
             </Box>
           </Box>

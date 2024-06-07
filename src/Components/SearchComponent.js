@@ -12,6 +12,7 @@ import Modal from "@mui/material/Modal";
 import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const style = {
   position: "absolute",
@@ -121,7 +122,7 @@ const SearchComponent = ({ source, icon }) => {
             key={value.id}
             sx={{
               width: "100%", // Inherit the width of the list container
-              border: "1px solid grey",
+              border: "1px solid #ccc",
               borderRadius: 2,
               mb: 1,
               overflow: "auto",
@@ -141,7 +142,7 @@ const SearchComponent = ({ source, icon }) => {
               }}
               secondaryAction={
                 <IconButton aria-label="comment" onClick={handleOpen}>
-                  <CommentIcon />
+                  <MoreHorizIcon />
                 </IconButton>
               }
             >
