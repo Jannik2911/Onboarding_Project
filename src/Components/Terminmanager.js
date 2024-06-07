@@ -14,7 +14,14 @@ import {
   Container,
   Grid,
   Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const locales = {
   de: deLocale,
@@ -48,23 +55,22 @@ const messages = {
 };
 
 const Terminmanager = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([
+    {
+      title: "Test",
+      start: new Date(2024, 4, 20, 13, 0, 0),
+      end: new Date(2024, 4, 20, 14, 0, 0),
+      allDay: false,
+      room: "Meeting Room 1",
+    },
+  ]);
+
   const [title, setTitle] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [room, setRoom] = useState("");
-
-  useEffect(() => {
-    const storedEvents = localStorage.getItem("events");
-    if (storedEvents) {
-      const parsedEvents = JSON.parse(storedEvents);
-      setEvents(parsedEvents.map(event => ({
-        ...event,
-        start: new Date(event.start),
-        end: new Date(event.end),
-      })));
-    }
-  }, []);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(events));
@@ -81,6 +87,7 @@ const Terminmanager = () => {
     };
     const updatedEvents = [...events, newEvent];
     setEvents(updatedEvents);
+    localStorage.setItem("events", JSON.stringify(updatedEvents));
     setTitle("");
     setStart("");
     setEnd("");
@@ -92,6 +99,23 @@ const Terminmanager = () => {
     setStart("");
     setEnd("");
     setRoom("");
+  };
+
+  const handleDelete = (eventToDelete) => {
+    const updatedEvents = events.filter((event) => event !== eventToDelete);
+    setEvents(updatedEvents);
+    localStorage.setItem("events", JSON.stringify(updatedEvents));
+    handleClose();
+  };
+
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedEvent(null);
   };
 
   return (
@@ -188,25 +212,49 @@ const Terminmanager = () => {
                   style={{ height: "100%" }}
                   culture="de"
                   messages={messages}
-                  components={{
-                    event: ({ event }) => (
-                      <span>
-                        <strong>{event.title}</strong>
-                        {event.room && (
-                          <>
-                            <br />
-                            <small>{event.room}</small>
-                          </>
-                        )}
-                      </span>
-                    ),
-                  }}
+                  onSelectEvent={handleEventClick}
                 />
               </Box>
             </Paper>
           </Grid>
         </Grid>
       </Container>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Ereignisdetails</DialogTitle>
+        <DialogContent>
+          {selectedEvent && (
+            <>
+              <DialogContentText>
+                <strong>Titel:</strong> {selectedEvent.title}
+              </DialogContentText>
+              <DialogContentText>
+                <strong>Beginn:</strong>{" "}
+                {format(selectedEvent.start, "dd.MM.yyyy HH:mm")}
+              </DialogContentText>
+              <DialogContentText>
+                <strong>Ende:</strong>{" "}
+                {format(selectedEvent.end, "dd.MM.yyyy HH:mm")}
+              </DialogContentText>
+              <DialogContentText>
+                <strong>Raum:</strong> {selectedEvent.room}
+              </DialogContentText>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Schließen
+          </Button>
+          <Button
+            onClick={() => handleDelete(selectedEvent)}
+            color="secondary"
+            startIcon={<DeleteIcon />}
+          >
+            Löschen
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Layout>
   );
 };
