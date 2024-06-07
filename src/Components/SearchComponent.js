@@ -12,7 +12,7 @@ import Modal from "@mui/material/Modal";
 import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const style = {
   position: "absolute",

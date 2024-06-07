@@ -41,7 +41,8 @@ export default function CheckList() {
     <List sx={{ width: "inherit", height: 250, bgcolor: "background.paper" }}>
       {tasks.map(
         (task, index) =>
-          !task.completed && (
+          !task.completed &&
+          !task.mitarbeiter && (
             <ListItem
               key={index}
               sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
