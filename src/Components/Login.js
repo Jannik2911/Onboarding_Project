@@ -54,27 +54,23 @@ export default function Login() {
     <div>
       <Container component="main" maxWidth="xs">
         <Box
+          component="img"
           sx={{
-            marginTop: 8,
+            width: "100%",
+            maxWidth: "500px",
+            objectFit: "scale-down",
+          }}
+          src={"/logo.png"}
+          alt={"alt"}
+        />
+        <Box
+          sx={{
+            marginTop: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{
-              width: "100%",
-              maxWidth: "500px",
-              borderRadius: "8px",
-              boxShadow: 3,
-            }}
-            src={"/logo.jpg"}
-            alt={"alt"}
-          />
-          <Typography component="h1" variant="h5">
-            Anmelden
-          </Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}

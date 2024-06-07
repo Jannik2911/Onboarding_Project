@@ -23,7 +23,7 @@ npx json-server --watch ./src/helper/db.json --port 8000
 
 function App() {
   useEffect(() => {
-    document.title = "Onboarding-Tool";
+    document.title = "ZOP";
   });
 
   const { isAdmin, setIsAdmin } = useContext(AdminContext);

@@ -28,7 +28,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 
 const MySvgIcon = () => {
   return (
-    <SvgIcon>
+    <SvgIcon sx={{ mb: 2 }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -38,7 +38,7 @@ const MySvgIcon = () => {
         style={{
           fillRule: "evenodd",
           clipRule: "evenodd",
-          transform: "scale(5) translateX(-85%)",
+          transform: "scale(5)",
           strokeLinejoin: "round",
           strokeMiterlimit: "1.41421",
         }}
@@ -281,7 +281,6 @@ export default function Layout({ children, headerText }) {
               px: [1],
             }}
           >
-            <MySvgIcon />
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
@@ -300,9 +299,30 @@ export default function Layout({ children, headerText }) {
               p: 2,
             }}
           >
-            <Typography sx={{ fontWeight: "bold", fontSize: 12 }}>
-              Version: 0.1
-            </Typography>
+            {open && (
+              <Box
+                component="img"
+                sx={{
+                  width: "auto",
+                  maxWidth: "50px",
+                  objectFit: "scale-down",
+                  mb: 2,
+                }}
+                src={"/logo.png"}
+                alt={"alt"}
+              />
+            )}
+            {open && (
+              <Typography sx={{ fontWeight: "bold", fontSize: 12, mb: 2 }}>
+                In Kooperation mit
+              </Typography>
+            )}
+            {open && <MySvgIcon />}
+            {open && (
+              <Typography sx={{ fontWeight: "bold", fontSize: 12 }}>
+                Version: 0.1
+              </Typography>
+            )}
           </Box>
         </Drawer>
         <Box
