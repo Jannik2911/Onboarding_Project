@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, TextField, Button, Typography, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import Message from "./Message"; // Import der aktualisierten Message-Komponente
 
 const UserChannel = () => {
   const [input, setInput] = useState("");
@@ -36,7 +37,7 @@ const UserChannel = () => {
 
   const handleSend = () => {
     if (input.trim() !== "" && selectedEmployee !== "") {
-      const newMessage = { id: Date.now(), text: input, sender: "user" };
+      const newMessage = { id: Date.now(), text: input, sender: "user", timestamp: Date.now() }; // Hinzufügen des Zeitstempels
       setMessages(prevMessages => {
         const employeeMessages = prevMessages[selectedEmployee.id] || [];
         return {
@@ -117,32 +118,6 @@ const UserChannel = () => {
           </Typography>
         )}
       </Box>
-    </Box>
-  );
-};
-
-const Message = ({ message }) => {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: message.sender === "user" ? "flex-end" : "flex-start",
-        mb: 2,
-      }}
-    >
-      <Paper
-        sx={{
-          p: 1,
-          maxWidth: '70%',
-          borderRadius: 16,
-          boxShadow: 1,
-          backgroundColor: message.sender === "user" ? "#CCCCCC" : "#FFFFFF",
-        }}
-      >
-        <Typography variant="body2" sx={{ wordBreak: "break-word" }}>
-          {message.text}
-        </Typography>
-      </Paper>
     </Box>
   );
 };
