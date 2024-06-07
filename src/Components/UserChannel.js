@@ -139,30 +139,4 @@ const UserChannel = () => {
   );
 };
 
-const Message = ({ message }) => {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: message.sender === "user" ? "flex-end" : "flex-start",
-        mb: 2,
-      }}
-    >
-      <Paper
-        sx={{
-          p: 1,
-          maxWidth: '70%',
-          borderRadius: 16,
-          boxShadow: 1,
-          backgroundColor: message.sender === "user" ? "#CCCCCC" : "#FFFFFF",
-        }}
-      >
-        <Typography variant="body2" sx={{ wordBreak: "break-word" }}>
-          {message.text}
-        </Typography>
-      </Paper>
-    </Box>
-  );
-};
-
 export default UserChannel;
