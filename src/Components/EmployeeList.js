@@ -274,7 +274,7 @@ const ContactManagement = () => {
                         label="Suche"
                         value={searchTerm}
                         onChange={handleChange}
-                        sx={{ width: "50%" }}
+                        sx={{ width: "76.5%" }}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
@@ -303,16 +303,16 @@ const ContactManagement = () => {
                         onClose={handleSortClose}
                       >
                         <MenuItem onClick={sortByLastNameAZ}>
-                          Name (a-z)
+                          Name (Aufsteigend)
                         </MenuItem>
                         <MenuItem onClick={sortByLastNameZA}>
-                          Name (z-a)
+                          Name (Absteigend)
                         </MenuItem>
                         <MenuItem onClick={sortByFirstNameAZ}>
-                          Vorname (a-z)
+                          Vorname (Aufsteigend)
                         </MenuItem>
                         <MenuItem onClick={sortByFirstNameZA}>
-                          Vorname (z-a)
+                          Vorname (Absteigend)
                         </MenuItem>
                       </Menu>
                     </Box>

@@ -71,7 +71,25 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#083163", // Set your desired primary color
+    },
+    secondary: {
+      main: "#395a82", // Set your desired secondary color
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#083163", // Change this color to your desired color
+        },
+      },
+    },
+  },
+});
 
 export default function Layout({ children, headerText }) {
   const [open, setOpen] = useState(true);
