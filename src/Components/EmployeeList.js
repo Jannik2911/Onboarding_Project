@@ -9,7 +9,16 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 const ContactItem = ({ contact, onRemove }) => (
-  <div style={{ display: "flex", flexDirection: "column", margin: "8px 0" }}>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      margin: "8px 0",
+      padding: "8px",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+    }}
+  >
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div style={{ textAlign: "left" }}>
         <div>{`${contact.firstName} ${contact.lastName}`}</div>
@@ -185,6 +194,8 @@ const ContactManagement = () => {
                       backgroundColor: snapshot.isDraggingOver
                         ? "#f0f0f0"
                         : "#fff",
+                      maxHeight: "85vh", // Adjust the height as needed
+                      overflow: "auto"
                     }}
                     {...provided.droppableProps}
                   >
@@ -225,6 +236,8 @@ const ContactManagement = () => {
                       backgroundColor: snapshot.isDraggingOver
                         ? "#f0f0f0"
                         : "#fff",
+                      maxHeight: "85vh", // Adjust the height as needed
+                      overflow: "auto"
                     }}
                     {...provided.droppableProps}
                   >
