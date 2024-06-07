@@ -45,7 +45,7 @@ export default function Footer() {
           <Typography variant="body1"></Typography>
           Jannik Linde, Niklas Cinar, Julian Heinze
           <br />
-          Nur für den internen Gebrauch
+          Zentrale Onboarding Plattform (ZOP)
           <Copyright />
         </Container>
       </Box>
