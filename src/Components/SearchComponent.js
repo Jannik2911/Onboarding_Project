@@ -105,8 +105,11 @@ const SearchComponent = ({ source, icon }) => {
           bgcolor: "background.paper",
           textAlign: "center",
           maxHeight: 290, // Set a fixed height for scrollability
-          overflow: "auto", // Enable scrolling
+          overflow: "hidden", // Initially hide the scrollbar
           margin: "auto", // Center the list horizontally
+          "&:hover": {
+            overflow: "auto", // Show the scrollbar on hover
+          },
         }}
       >
         {filteredArr?.map((value) => (

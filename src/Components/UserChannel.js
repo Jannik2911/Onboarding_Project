@@ -52,9 +52,9 @@ const UserChannel = () => {
         id: Date.now(),
         text: input,
         sender: "user",
-        timestamp: Date.now() // Hinzufügen des Zeitstempels
+        timestamp: Date.now(), // Hinzufügen des Zeitstempels
       };
-      setMessages(prevMessages => {
+      setMessages((prevMessages) => {
         const employeeMessages = prevMessages[selectedEmployee.id] || [];
         return {
           ...prevMessages,
@@ -64,7 +64,7 @@ const UserChannel = () => {
       setInput("");
     }
   };
-  
+
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
