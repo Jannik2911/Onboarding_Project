@@ -202,7 +202,7 @@ export default function Layout({ children, headerText }) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {headerText ? headerText : "ZOP-Dashboard"}
+              {headerText ? headerText : "ZOP - Dashboard"}
             </Typography>
             <IconButton color="inherit" onClick={handlePersonClick}>
               <Badge color="secondary">

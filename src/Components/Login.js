@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import { AdminContext } from "./AdminContext";
 import { LoginContext } from "./LoginContext";
 import { useContext } from "react";
+import SvgIcon from "@mui/material/SvgIcon";
 
 export default function Login() {
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
@@ -60,6 +61,17 @@ export default function Login() {
             alignItems: "center",
           }}
         >
+          <Box
+            component="img"
+            sx={{
+              width: "100%",
+              maxWidth: "500px",
+              borderRadius: "8px",
+              boxShadow: 3,
+            }}
+            src={"/logo.jpg"}
+            alt={"alt"}
+          />
           <Typography component="h1" variant="h5">
             Anmelden
           </Typography>

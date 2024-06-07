@@ -14,6 +14,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import EditIcon from "@mui/icons-material/Edit";
 //import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 export default function MainListItems() {
@@ -80,7 +81,7 @@ export default function MainListItems() {
       {isAdmin && (
         <ListItemButton>
           <ListItemIcon>
-            <ListAltIcon onClick={() => open("/ablaufplanerstellen")} />
+            <EditIcon onClick={() => open("/ablaufplanerstellen")} />
           </ListItemIcon>
           <ListItemText
             primary="Ablaufplan erstellen"
