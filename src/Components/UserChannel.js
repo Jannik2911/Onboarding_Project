@@ -48,7 +48,12 @@ const UserChannel = () => {
 
   const handleSend = () => {
     if (input.trim() !== "" && selectedEmployee !== "") {
-      const newMessage = { id: Date.now(), text: input, sender: "user" };
+      const newMessage = {
+        id: Date.now(),
+        text: input,
+        sender: "user",
+        timestamp: Date.now() // Hinzufügen des Zeitstempels
+      };
       setMessages(prevMessages => {
         const employeeMessages = prevMessages[selectedEmployee.id] || [];
         return {
@@ -59,7 +64,7 @@ const UserChannel = () => {
       setInput("");
     }
   };
-
+  
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };

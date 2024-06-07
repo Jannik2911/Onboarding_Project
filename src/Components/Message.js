@@ -12,11 +12,11 @@ const Message = ({ message }) => {
     setShowTimestamp(false);
   };
 
-  const formattedTimestamp = new Date(message.timestamp).toLocaleTimeString("de-DE", {
+  const formattedTimestamp = message.timestamp ? new Date(message.timestamp).toLocaleTimeString("de-DE", {
     hour: "2-digit",
     minute: "2-digit",
-  });
-
+  }) : "";
+  
   return (
     <Box
       sx={{
@@ -38,6 +38,8 @@ const Message = ({ message }) => {
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        // Zusätzliche hover-Eigenschaft, um auch die Position des Mauszeigers zu berücksichtigen
+        style={{ transition: "left 0.3s ease", left: showTimestamp ? "-30px" : "0" }}
       >
         <Typography variant="body2" sx={{ wordBreak: "break-word" }}>
           {message.text}
