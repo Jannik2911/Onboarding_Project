@@ -48,20 +48,23 @@ const messages = {
 };
 
 const Terminmanager = () => {
-  const [events, setEvents] = useState([
-    {
-      title: "Test",
-      start: new Date(2024, 4, 20, 13, 0, 0),
-      end: new Date(2024, 4, 20, 14, 0, 0),
-      allDay: false,
-      room: "Meeting Room 1",
-    },
-  ]);
-
+  const [events, setEvents] = useState([]);
   const [title, setTitle] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [room, setRoom] = useState("");
+
+  useEffect(() => {
+    const storedEvents = localStorage.getItem("events");
+    if (storedEvents) {
+      const parsedEvents = JSON.parse(storedEvents);
+      setEvents(parsedEvents.map(event => ({
+        ...event,
+        start: new Date(event.start),
+        end: new Date(event.end),
+      })));
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(events));
@@ -78,7 +81,6 @@ const Terminmanager = () => {
     };
     const updatedEvents = [...events, newEvent];
     setEvents(updatedEvents);
-    localStorage.setItem("events", JSON.stringify(updatedEvents));
     setTitle("");
     setStart("");
     setEnd("");
