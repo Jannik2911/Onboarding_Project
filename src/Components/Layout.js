@@ -38,7 +38,7 @@ const MySvgIcon = () => {
         style={{
           fillRule: "evenodd",
           clipRule: "evenodd",
-          transform: "scale(5) translateX(-50%)",
+          transform: "scale(5) translateX(-85%)",
           strokeLinejoin: "round",
           strokeMiterlimit: "1.41421",
         }}
