@@ -51,8 +51,8 @@ function ServerDay(props) {
         outsideCurrentMonth={outsideCurrentMonth}
         day={day}
         sx={{
-          width: 40, // Set a fixed width to avoid distortion
-          height: 45, // Set a fixed height to maintain aspect ratio
+          width: 37, // Set a fixed width to avoid distortion
+          height: 37, // Set a fixed height to maintain aspect ratio
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
