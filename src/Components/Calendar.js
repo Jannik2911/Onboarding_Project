@@ -3,9 +3,7 @@ import dayjs from "dayjs";
 import Badge from "@mui/material/Badge";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { PickersDay } from "@mui/x-date-pickers/PickersDay";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
+import { PickersDay, DateCalendar, DayCalendarSkeleton } from "@mui/x-date-pickers";
 import { styled } from "@mui/material/styles";
 import { useState, useEffect, useRef } from "react";
 import "dayjs/locale/de";
@@ -21,12 +19,16 @@ const CalendarContainer = styled("div")({
 });
 
 function getEventDays(events) {
-  let eventDays = [];
+  let eventDays = {};
   events.forEach(event => {
     let current = dayjs(event.start);
     const end = dayjs(event.end);
     while (current.isBefore(end) || current.isSame(end, 'day')) {
-      eventDays.push(current.format('YYYY-MM-DD'));
+      const formattedDate = current.format('YYYY-MM-DD');
+      if (!eventDays[formattedDate]) {
+        eventDays[formattedDate] = 0;
+      }
+      eventDays[formattedDate] += 1;
       current = current.add(1, 'day');
     }
   });
@@ -35,19 +37,20 @@ function getEventDays(events) {
 
 function ServerDay(props) {
   const {
-    eventDays = [],
+    eventDays = {},
     day,
     outsideCurrentMonth,
     ...other
   } = props;
 
-  const isSelected = !outsideCurrentMonth && eventDays.includes(day.format('YYYY-MM-DD'));
+  const eventsCount = !outsideCurrentMonth && eventDays[day.format('YYYY-MM-DD')] || 0;
 
   return (
     <Badge
       key={day.toString()}
       overlap="circular"
-      badgeContent={isSelected ? "👥" : undefined}
+      badgeContent={eventsCount > 0 ? eventsCount : undefined}
+      color="primary"
     >
       <PickersDay
         {...other}
