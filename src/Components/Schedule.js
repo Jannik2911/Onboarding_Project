@@ -48,9 +48,9 @@ const Schedule = () => {
   }, []);
 
   const calculateHeight = (index, totalEvents) => {
-    const totalHeight = 800; // Gesamtverfügbare Höhe in Pixel
-    const margin = 10; // Abstand zwischen den Karten in Pixel
-    return (totalHeight - (totalEvents - 1) * margin) / totalEvents; // Dynamische Höhe basierend auf der Anzahl der Ereignisse
+    const totalHeight = 800;
+    const margin = 10;
+    return (totalHeight - (totalEvents - 1) * margin) / totalEvents;
   };
 
   return (
