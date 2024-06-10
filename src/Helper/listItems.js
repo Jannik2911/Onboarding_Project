@@ -9,18 +9,19 @@ import { useNavigate } from "react-router-dom";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { AdminContext } from "../Components/AdminContext";
+import { ApplicationContext } from "../Components/ApplicationContext";
 import { useContext } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
-//import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 export default function MainListItems() {
   let navigate = useNavigate();
 
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  const { isApplication, setIsApplication } = useContext(ApplicationContext);
 
   const open = (path) => {
     navigate(path);
@@ -28,6 +29,18 @@ export default function MainListItems() {
 
   return (
     <React.Fragment>
+      {isApplication && (
+        <ListItemButton>
+          <ListItemIcon>
+            <ChecklistOutlinedIcon onClick={() => open("/application")} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Bewerbungsstand"
+            onClick={() => open("/application")}
+          />
+        </ListItemButton>
+      )}
+
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon onClick={() => open("/dashboard")} />

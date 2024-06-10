@@ -64,34 +64,36 @@ const Schedule = () => {
     <EventsContext.Provider value={{ events, setEvents }}>
       <Layout headerText={"Ablaufplan"}>
         <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-          <Box>
-            <Typography variant="h6">Ablaufplan für {role}</Typography>
-            <Timeline position="alternate">
-              {events.map((event, index) => (
-                <TimelineItem key={index}>
-                  <TimelineOppositeContent
-                    sx={{ m: "auto 0" }}
-                    align="right"
-                    variant="body2"
-                    color="text.secondary"
-                  >
-                    {new Date(event.date).toLocaleDateString("de-DE")}
-                  </TimelineOppositeContent>
-                  <TimelineSeparator>
-                    <TimelineConnector />
-                    <TimelineDot />
-                    <TimelineConnector />
-                  </TimelineSeparator>
-                  <TimelineContent sx={{ py: "12px", px: 2 }}>
-                    <Typography variant="h6" component="span">
-                      {event.name}
-                    </Typography>
-                    <Typography>{`Rolle: ${event.employee}`}</Typography>
-                  </TimelineContent>
-                </TimelineItem>
-              ))}
-            </Timeline>
-          </Box>
+          <Paper>
+            <Box>
+              <Typography variant="h6">Ablaufplan für {role}</Typography>
+              <Timeline position="alternate">
+                {events.map((event, index) => (
+                  <TimelineItem key={index}>
+                    <TimelineOppositeContent
+                      sx={{ m: "auto 0" }}
+                      align="right"
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {new Date(event.date).toLocaleDateString("de-DE")}
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                      <TimelineConnector />
+                      <TimelineDot />
+                      <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent sx={{ py: "12px", px: 2 }}>
+                      <Typography variant="h6" component="span">
+                        {event.name}
+                      </Typography>
+                      <Typography>{`Rolle: ${event.employee}`}</Typography>
+                    </TimelineContent>
+                  </TimelineItem>
+                ))}
+              </Timeline>
+            </Box>
+          </Paper>
         </Container>
       </Layout>
     </EventsContext.Provider>

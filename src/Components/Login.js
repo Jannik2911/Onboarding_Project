@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { AdminContext } from "./AdminContext";
+import { ApplicationContext } from "./ApplicationContext";
 import { LoginContext } from "./LoginContext";
 import { useContext } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
@@ -43,6 +44,7 @@ const ContentWrapper = styled("div")({
 
 export default function Login() {
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  const { isApplication, setIsApplication } = useContext(ApplicationContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
 
   let navigate = useNavigate();
@@ -63,6 +65,13 @@ export default function Login() {
             user.password === form.get("password")
           ) {
             setIsLoggedIn(true);
+
+            if (user.id === 2) {
+              setIsApplication(true);
+              routeChange("/application");
+            } else {
+              setIsApplication(false);
+            }
 
             if (user.admin === true) {
               setIsAdmin(true);
