@@ -18,7 +18,6 @@ import Layout from "./Layout";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
-
 const EventsContext = createContext();
 
 const Plan = {
@@ -222,56 +221,6 @@ const AdminPage = () => {
                   </Button>
                 </Box>
               </Modal>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper>
-              <Typography variant="h6">Plan zuweisen</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  mb: 1,
-                }}
-              >
-                <TextField
-                  select
-                  label="Plan"
-                  value={role}
-                  sx={{
-                    width: "50vh",
-                  }}
-                  onChange={(e) => setRole(e.target.value)}
-                  SelectProps={{
-                    native: true,
-                  }}
-                >
-                  {Object.entries(Plan).map(([key, value]) => (
-                    <option key={key} value={key}>
-                      {value}
-                    </option>
-                  ))}
-                </TextField>
-                <TextField
-                  select
-                  sx={{
-                    width: "50vh",
-                  }}
-                  SelectProps={{
-                    native: true,
-                  }}
-                >
-                  {users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.name}
-                    </option>
-                  ))}
-                </TextField>
-              </Box>
-              <Button variant="contained" color="primary" sx={{ mb: 1 }}>
-                Rolle zuweisen
-              </Button>
             </Paper>
           </Grid>
         </Grid>

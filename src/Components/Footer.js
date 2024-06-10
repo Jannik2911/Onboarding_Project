@@ -4,16 +4,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary">
-      {"Copyright © Projektgruppe DRV-Westfalen"}
-      <Link color="inherit" href="/"></Link> {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 export default function Footer() {
   return (
     <Box
@@ -44,7 +34,11 @@ export default function Footer() {
           Jannik Linde, Niklas Cinar, Julian Heinze
           <br />
           Zentrale Onboarding Plattform (ZOP)
-          <Copyright />
+          <Typography variant="body2" color="text.secondary">
+            {"Copyright © Projektgruppe DRV-Westfalen"}
+            <Link color="inherit" href="/"></Link> {new Date().getFullYear()}
+            {"."}
+          </Typography>
         </Container>
       </Box>
     </Box>
