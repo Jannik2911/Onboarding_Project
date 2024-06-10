@@ -85,16 +85,16 @@ const UserChannel = ({ applicationChat = false }) => {
           <Grid item xs={3}>
             <FormControl fullWidth size="small">
               <InputLabel>
-                {applicationChat ? "Personalabteilung" : "Mitarbeiter"}
+                {applicationChat ? "Personalbereich" : "Mitarbeiter"}
               </InputLabel>
               <Select
                 value={selectedEmployee}
                 onChange={handleEmployeeChange}
-                label={applicationChat ? "Personalabteilung" : "Mitarbeiter"}
+                label={applicationChat ? "Personalbereich" : "Mitarbeiter"}
               >
                 {applicationChat ? (
-                  <MenuItem key={-1} value={"Personalabteilung"}>
-                    {"Personalabteilung"}
+                  <MenuItem key={-1} value={"Personalbereich"}>
+                    {"Personalbereich"}
                   </MenuItem>
                 ) : (
                   mitarbeiter.map((employee) => (
