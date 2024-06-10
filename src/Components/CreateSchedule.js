@@ -16,11 +16,9 @@ import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import Layout from "./Layout";
 import Box from "@mui/material/Box";
-
 import Modal from "@mui/material/Modal";
-import CustomizedTimeline from "./TimelineComponent";
 
-// Erstellung des Contexts für die Ereignisse
+
 const EventsContext = createContext();
 
 const Mitarbeiter = {

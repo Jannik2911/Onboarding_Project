@@ -16,19 +16,23 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Layout from "./Layout";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const BasicSelect = ({ mitarbeiter, setMid }) => {
-  const [item, setItem] = useState("");
+  const [items, setItems] = useState([]);
 
   const handleChange = (event) => {
-    const selectedName = event.target.value;
-    setItem(selectedName);
-    setMid(`${event.target.value.firstName} ${event.target.value.lastName}`);
+    const selectedNames = event.target.value;
+    if (selectedNames.includes("")) {
+      setItems([]);
+      setMid([]);
+    } else {
+      setItems(selectedNames);
+      setMid(selectedNames.map(name => `${name.firstName} ${name.lastName}`));
+    }
   };
 
   return (
@@ -38,11 +42,16 @@ const BasicSelect = ({ mitarbeiter, setMid }) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={item}
+          multiple
+          value={items}
           label="Mitarbeiter"
           onChange={handleChange}
           sx={{ textAlign: "left" }}
+          renderValue={(selected) => selected.map((item) => `${item.firstName} ${item.lastName}`).join(', ')}
         >
+          <MenuItem value="">
+            <em>Ohne Zuweisung</em>
+          </MenuItem>
           {mitarbeiter?.map((value) => (
             <MenuItem key={value.id} value={value} sx={{ textAlign: "left" }}>
               {`${value.firstName} ${value.lastName}`}
@@ -61,9 +70,10 @@ const TodoList = () => {
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
   const [input, setInput] = useState("");
-  const [mid, setMid] = useState("");
+  const [mid, setMid] = useState([]);
 
   const [mitarbeiter, setMitarbeiter] = useState([]);
+  const [currentUser, setCurrentUser] = useState({ firstName: "Current", lastName: "User" });
 
   useEffect(() => {
     const fetchMitarbeiter = async () => {
@@ -91,11 +101,12 @@ const TodoList = () => {
           text: input,
           completed: false,
           f: new Date(frist).toLocaleString("de-DE"),
-          mitarbeiter: mid,
+          mitarbeiter: mid.length > 0 ? mid : [],
+          status: "offen", // Setze den Status auf "offen" beim Hinzufügen einer neuen Aufgabe
         },
       ]);
       setInput("");
-      setMid("");
+      setMid([]);
       setFrist("");
     }
   };
@@ -108,19 +119,31 @@ const TodoList = () => {
   const toggleCompletion = (index) => {
     const newTasks = tasks.map((task, i) => {
       if (i === index) {
-        if (!task.completed) {
+        const assignedUsers = Array.isArray(task.mitarbeiter) ? task.mitarbeiter : [];
+        const currentUserName = `${currentUser.firstName} ${currentUser.lastName}`;
+        if (assignedUsers.length === 0 || assignedUsers.includes(currentUserName)) {
+          const newStatus = task.completed ? "offen" : "abgeschlossen";
           return {
             ...task,
-            completed: true,
-            completedAt: new Date().toLocaleString("de-DE"),
+            completed: !task.completed,
+            completedAt: !task.completed ? new Date().toLocaleString("de-DE") : undefined,
+            status: newStatus,
           };
-        } else {
-          return { ...task, completed: false, completedAt: undefined };
         }
       }
       return task;
     });
     setTasks(newTasks);
+  };
+
+  const getStatus = (task) => {
+    if (task.completed) {
+      return "abgeschlossen";
+    } else if (new Date(task.f) < new Date()) {
+      return "überfällig";
+    } else {
+      return "in Bearbeitung";
+    }
   };
 
   return (
@@ -188,6 +211,10 @@ const TodoList = () => {
                         tabIndex={-1}
                         disableRipple
                         onChange={() => toggleCompletion(index)}
+                        disabled={
+                          task.mitarbeiter.length > 0 &&
+                          !task.mitarbeiter.includes(`${currentUser.firstName} ${currentUser.lastName}`)
+                        }
                         sx={{
                           color: "primary.main",
                           "&.Mui-checked": { color: "primary.main" },
@@ -208,15 +235,19 @@ const TodoList = () => {
                       }
                       secondary={
                         <>
-                          {task.mitarbeiter && (
+                          {Array.isArray(task.mitarbeiter) && task.mitarbeiter.length > 0 && (
                             <Typography
                               variant="body2"
                               color="textSecondary"
-                            >{`Zugewiesen an: ${task.mitarbeiter}`}</Typography>
+                            >{`Zugewiesen an: ${task.mitarbeiter.join(', ')}`}</Typography>
                           )}
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                          >{`Status: ${getStatus(task)}`}</Typography>
                           {task.completed ? (
                             `Aufgabe erledigt am ${task.completedAt}`
-                          ) : /*new Date() < new Date(task.f)*/ true ? (
+                          ) : new Date(task.f) > new Date() ? (
                             `Zu erledigen bis zum ${task.f}`
                           ) : (
                             <span style={{ color: "red" }}>

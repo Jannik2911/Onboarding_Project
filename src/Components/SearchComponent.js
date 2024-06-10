@@ -6,12 +6,9 @@ import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import CommentIcon from "@mui/icons-material/Comment";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Button, Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const style = {

@@ -3,14 +3,12 @@ import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { AdminContext } from "./AdminContext";
 import { LoginContext } from "./LoginContext";
 import { useContext } from "react";
-import SvgIcon from "@mui/material/SvgIcon";
 
 export default function Login() {
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
