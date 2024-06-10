@@ -1,7 +1,7 @@
 {
   "users": [
-    {"id": 0, "name": "Tester", "password": "test", "admin": false},
-    {"id": 1, "name": "Admin", "password": "test", "admin": true}
+    {"id": 0, "name": "Tester", "password": "test", "admin": false, "plan": "kvd"},
+    {"id": 1, "name": "Admin", "password": "test", "admin": true, "plan": "kvd"}
   ],
   "names": [
 { "id": 1, "firstName": "Hans", "lastName": "Meier", "phone": "030-1234567", "department": "Personal" },

@@ -10,7 +10,27 @@ import Footer from "./Footer";
 import { AdminContext } from "./AdminContext";
 import { LoginContext } from "./LoginContext";
 import { useContext } from "react";
-import SvgIcon from "@mui/material/SvgIcon";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#083163", // Set your desired primary color
+    },
+    secondary: {
+      main: "#395a82", // Set your desired secondary color
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#083163", // Change this color to your desired color
+        },
+      },
+    },
+  },
+});
 
 export default function Login() {
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
@@ -52,70 +72,73 @@ export default function Login() {
 
   return (
     <div>
-      <Container component="main" maxWidth="xs">
-        <Box
-          component="img"
-          sx={{
-            width: "100%",
-            maxWidth: "500px",
-            objectFit: "scale-down",
-          }}
-          src={"/logo.png"}
-          alt={"alt"}
-        />
-        <Box
-          sx={{
-            marginTop: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+      <ThemeProvider theme={defaultTheme}>
+        <Container component="main" maxWidth="xs">
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            component="img"
+            sx={{
+              width: "100%",
+              maxWidth: "500px",
+              objectFit: "scale-down",
+            }}
+            src={"/logo.png"}
+            alt={"alt"}
+          />
+          <Box
+            sx={{
+              marginTop: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Nutzername"
-              name="name"
-              autoComplete="name"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Anmelden
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/forgotpassword" variant="body2">
-                  Passwort vergessen
-                </Link>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Nutzername"
+                name="name"
+                autoComplete="name"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Anmelden
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="/forgotpassword" variant="body2">
+                    Passwort vergessen
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-      <Footer />
+        </Container>
+        <Footer />
+      </ThemeProvider>
     </div>
   );
 }

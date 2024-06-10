@@ -23,7 +23,7 @@ import CustomizedTimeline from "./TimelineComponent";
 // Erstellung des Contexts für die Ereignisse
 const EventsContext = createContext();
 
-const Mitarbeiter = {
+const Plan = {
   KVD: "Kommunaler Verwaltungsdienst",
   SVD: "Staatlicher Verwaltungsdienst",
 };
@@ -46,8 +46,9 @@ const AdminPage = () => {
   const [open, setOpen] = useState(false);
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
-  const [employee, setEmployee] = useState(Object.keys(Mitarbeiter)[0]);
+  const [role, setRole] = useState(Object.keys(Plan)[0]);
   const { events, setEvents } = useContext(EventsContext);
+  const [users, setUsers] = useState([]);
 
   const handleClick = () => {
     handleOpen();
@@ -61,19 +62,31 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    const storedEvents = localStorage.getItem(`onboardingEvents_${employee}`);
+    fetch("http://localhost:8000/users")
+      .then((res) => res.json())
+      .then((data) => {
+        const nonAdminUsers = data.filter((user) => !user.admin);
+        setUsers(nonAdminUsers);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const storedEvents = localStorage.getItem(`onboardingEvents_${role}`);
     if (storedEvents) {
       setEvents(JSON.parse(storedEvents));
     } else {
       setEvents([]);
     }
-  }, [employee, setEvents]);
+  }, [role, setEvents]);
 
   const handleAddEvent = () => {
     const newEvent = {
       name: eventName,
       date: eventDate,
-      employee: employee,
+      employee: role,
     };
     const updatedEvents = [...events, newEvent].sort(
       (a, b) =>
@@ -82,7 +95,7 @@ const AdminPage = () => {
     );
     setEvents(updatedEvents);
     localStorage.setItem(
-      `onboardingEvents_${employee}`,
+      `onboardingEvents_${role}`,
       JSON.stringify(updatedEvents)
     );
     setEventName("");
@@ -93,7 +106,7 @@ const AdminPage = () => {
 
   return (
     <Layout headerText={"Ablaufplan erstellen"}>
-      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <Paper>
@@ -118,18 +131,18 @@ const AdminPage = () => {
               />
               <TextField
                 select
-                label="Mitarbeiter"
+                label="Plan"
                 fullWidth
-                value={employee}
+                value={role}
                 sx={{ mb: 1 }}
-                onChange={(e) => setEmployee(e.target.value)}
+                onChange={(e) => setRole(e.target.value)}
                 SelectProps={{
                   native: true,
                 }}
               >
-                {Object.keys(Mitarbeiter).map((name) => (
-                  <option key={name} value={name}>
-                    {name}
+                {Object.entries(Plan).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
                   </option>
                 ))}
               </TextField>
@@ -146,7 +159,7 @@ const AdminPage = () => {
           </Grid>
           <Grid item xs={12} sm={8}>
             <Paper>
-              <Typography variant="h6">Ablaufplan für {employee}</Typography>
+              <Typography variant="h6">Ablaufplan für {role}</Typography>
               <Timeline position="alternate">
                 {events.map((event, index) => (
                   <TimelineItem key={index} onClick={handleClick}>
@@ -211,6 +224,56 @@ const AdminPage = () => {
                   </Button>
                 </Box>
               </Modal>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Typography variant="h6">Plan zuweisen</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: 1,
+                }}
+              >
+                <TextField
+                  select
+                  label="Plan"
+                  value={role}
+                  sx={{
+                    width: "50vh",
+                  }}
+                  onChange={(e) => setRole(e.target.value)}
+                  SelectProps={{
+                    native: true,
+                  }}
+                >
+                  {Object.entries(Plan).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {value}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField
+                  select
+                  sx={{
+                    width: "50vh",
+                  }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                >
+                  {users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </TextField>
+              </Box>
+              <Button variant="contained" color="primary" sx={{ mb: 1 }}>
+                Rolle zuweisen
+              </Button>
             </Paper>
           </Grid>
         </Grid>
