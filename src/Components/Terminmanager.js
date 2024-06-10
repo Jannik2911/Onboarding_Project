@@ -23,7 +23,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Typography,
   Chip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -63,10 +62,10 @@ const messages = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#083163", // Customize your primary color here
+      main: "#083163",
     },
     secondary: {
-      main: "#395a82", // Customize your secondary color here
+      main: "#395a82",
     },
   },
   components: {

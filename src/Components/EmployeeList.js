@@ -57,7 +57,7 @@ const ContactItem = ({ contact, onRemove }) => (
   </div>
 );
 
-const ContactManagement = () => {
+const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [contacts, setContacts] = useState([]);
   const [favorites, setFavorites] = useState(() => {
@@ -69,7 +69,7 @@ const ContactManagement = () => {
   const [filterDialogOpen, setFilterDialogOpen] = useState(false);
   const [filterField, setFilterField] = useState("lastName");
   const [filterTerm, setFilterTerm] = useState("");
-  const [allContacts, setAllContacts] = useState([]); 
+  const [allContacts, setAllContacts] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/names")
@@ -126,7 +126,7 @@ const ContactManagement = () => {
 
   useEffect(() => {
     if (filterTerm === "") {
-      setContacts(allContacts); 
+      setContacts(allContacts);
     } else {
       const filtered = allContacts.filter((element) => {
         return element[filterField]
@@ -387,4 +387,4 @@ const ContactManagement = () => {
   );
 };
 
-export default ContactManagement;
+export default EmployeeList;

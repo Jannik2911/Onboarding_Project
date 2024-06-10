@@ -112,7 +112,11 @@ const Info = () => {
                       {detail}
                     </Typography>
                   ) : (
+<<<<<<< HEAD
                     <Typography key={detailIndex} className="faq-text" paragraph>
+=======
+                    <div key={detailIndex} className="faq-text">
+>>>>>>> 396383d2d2c5ede6731716a017f4098e0c52fe96
                       {detail.name && <div>{detail.name}</div>}
                       {detail.phone && (
                         <div>
@@ -123,7 +127,7 @@ const Info = () => {
                       {detail.email && <div>Email: {detail.email}</div>}
                       {detail.days && <div>{detail.days}</div>}
                       {detail.hours && <div>{detail.hours}</div>}
-                    </Typography>
+                    </div>
                   )
                 )
               ) : (

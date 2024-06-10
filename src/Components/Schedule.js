@@ -3,8 +3,15 @@ import Layout from "./Layout";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import { Container, Card, CardContent, Typography } from "@mui/material";
-import { useState, useEffect, createContext, useContext } from "react";
+import { Container, Typography } from "@mui/material";
+import { useState, useEffect, createContext } from "react";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
+import TimelineDot from "@mui/lab/TimelineDot";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -57,27 +64,36 @@ const Schedule = () => {
     <EventsContext.Provider value={{ events, setEvents }}>
       <Layout headerText={"Ablaufplan"}>
         <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-          <Box>
-            {events.map((event, index) => {
-              const height = calculateHeight(index, events.length);
-              return (
-                <Card
-                  key={index}
-                  style={{ marginBottom: "10px", height: `${height}px` }}
-                >
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      {event.name}
-                    </Typography>
-                    <Typography color="text.secondary">
+          <Paper>
+            <Box>
+              <Typography variant="h6">Ablaufplan für {role}</Typography>
+              <Timeline position="alternate">
+                {events.map((event, index) => (
+                  <TimelineItem key={index}>
+                    <TimelineOppositeContent
+                      sx={{ m: "auto 0" }}
+                      align="right"
+                      variant="body2"
+                      color="text.secondary"
+                    >
                       {new Date(event.date).toLocaleDateString("de-DE")}
-                    </Typography>
-                    <Typography variant="body2">{event.employee}</Typography>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </Box>
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                      <TimelineConnector />
+                      <TimelineDot />
+                      <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent sx={{ py: "12px", px: 2 }}>
+                      <Typography variant="h6" component="span">
+                        {event.name}
+                      </Typography>
+                      <Typography>{`Rolle: ${event.employee}`}</Typography>
+                    </TimelineContent>
+                  </TimelineItem>
+                ))}
+              </Timeline>
+            </Box>
+          </Paper>
         </Container>
       </Layout>
     </EventsContext.Provider>
