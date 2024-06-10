@@ -29,7 +29,7 @@ export default function MainListItems() {
 
   return (
     <React.Fragment>
-      {isApplication && (
+      {isApplication ? (
         <ListItemButton>
           <ListItemIcon>
             <ChecklistOutlinedIcon onClick={() => open("/application")} />
@@ -39,79 +39,87 @@ export default function MainListItems() {
             onClick={() => open("/application")}
           />
         </ListItemButton>
-      )}
+      ) : (
+        <>
+          <ListItemButton>
+            <ListItemIcon>
+              <DashboardIcon onClick={() => open("/dashboard")} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Dashboard"
+              onClick={() => open("/dashboard")}
+            />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemIcon>
+              <ChecklistOutlinedIcon onClick={() => open("/tasks")} />
+            </ListItemIcon>
+            <ListItemText primary="Aufgaben" onClick={() => open("/tasks")} />
+          </ListItemButton>
 
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon onClick={() => open("/dashboard")} />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" onClick={() => open("/dashboard")} />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <ChecklistOutlinedIcon onClick={() => open("/tasks")} />
-        </ListItemIcon>
-        <ListItemText primary="Aufgaben" onClick={() => open("/tasks")} />
-      </ListItemButton>
+          {isAdmin && (
+            <ListItemButton>
+              <ListItemIcon>
+                <BadgeOutlinedIcon onClick={() => open("/employeelist")} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Kontaktbuch"
+                onClick={() => open("/employeelist")}
+              />
+            </ListItemButton>
+          )}
+          <ListItemButton>
+            <ListItemIcon>
+              <CalendarMonthIcon onClick={() => open("/terminmanager")} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Terminmanager"
+              onClick={() => open("/terminmanager")}
+            />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemIcon>
+              <ListAltIcon onClick={() => open("/ablaufplan")} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Ablaufplan"
+              onClick={() => open("/ablaufplan")}
+            />
+          </ListItemButton>
 
-      {isAdmin && (
-        <ListItemButton>
-          <ListItemIcon>
-            <BadgeOutlinedIcon onClick={() => open("/employeelist")} />
-          </ListItemIcon>
-          <ListItemText
-            primary="Kontaktbuch"
-            onClick={() => open("/employeelist")}
-          />
-        </ListItemButton>
-      )}
-      <ListItemButton>
-        <ListItemIcon>
-          <CalendarMonthIcon onClick={() => open("/terminmanager")} />
-        </ListItemIcon>
-        <ListItemText
-          primary="Terminmanager"
-          onClick={() => open("/terminmanager")}
-        />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <ListAltIcon onClick={() => open("/ablaufplan")} />
-        </ListItemIcon>
-        <ListItemText
-          primary="Ablaufplan"
-          onClick={() => open("/ablaufplan")}
-        />
-      </ListItemButton>
-
-      <ListItemButton>
-        <ListItemIcon>
-          <InfoIcon onClick={() => open("/info")} />
-        </ListItemIcon>
-        <ListItemText primary="Informationen" onClick={() => open("/info")} />
-      </ListItemButton>
-      <Divider />
-      {isAdmin && (
-        <ListItemButton>
-          <ListItemIcon>
-            <EditIcon onClick={() => open("/ablaufplanerstellen")} />
-          </ListItemIcon>
-          <ListItemText
-            primary="Ablaufplan erstellen"
-            onClick={() => open("/ablaufplanerstellen")}
-          />
-        </ListItemButton>
-      )}
-      {isAdmin && (
-        <ListItemButton>
-          <ListItemIcon>
-            <PeopleIcon onClick={() => open("/mitarbeiterverwaltung")} />
-          </ListItemIcon>
-          <ListItemText
-            primary="Mitarbeiterverwaltung"
-            onClick={() => open("/mitarbeiterverwaltung")}
-          />
-        </ListItemButton>
+          <ListItemButton>
+            <ListItemIcon>
+              <InfoIcon onClick={() => open("/info")} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Informationen"
+              onClick={() => open("/info")}
+            />
+          </ListItemButton>
+          <Divider />
+          {isAdmin && (
+            <ListItemButton>
+              <ListItemIcon>
+                <EditIcon onClick={() => open("/ablaufplanerstellen")} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Ablaufplan erstellen"
+                onClick={() => open("/ablaufplanerstellen")}
+              />
+            </ListItemButton>
+          )}
+          {isAdmin && (
+            <ListItemButton>
+              <ListItemIcon>
+                <PeopleIcon onClick={() => open("/mitarbeiterverwaltung")} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Mitarbeiterverwaltung"
+                onClick={() => open("/mitarbeiterverwaltung")}
+              />
+            </ListItemButton>
+          )}
+        </>
       )}
     </React.Fragment>
   );

@@ -71,15 +71,15 @@ export default function Login() {
               routeChange("/application");
             } else {
               setIsApplication(false);
-            }
 
-            if (user.admin === true) {
-              setIsAdmin(true);
-            } else {
-              setIsAdmin(false);
-            }
+              if (user.admin === true) {
+                setIsAdmin(true);
+              } else {
+                setIsAdmin(false);
+              }
 
-            routeChange("/dashboard");
+              routeChange("/dashboard");
+            }
           }
         });
       })
