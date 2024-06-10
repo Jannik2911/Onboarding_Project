@@ -10,9 +10,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-
 import "../App.css";
-
 
 const faqs = [
   {
@@ -98,34 +96,31 @@ const Info = () => {
             </AccordionSummary>
             <Divider />
             <AccordionDetails>
-  {Array.isArray(faq.details) ? (
-    faq.details.map((detail, detailIndex) =>
-      typeof detail === "string" ? (
-        <Typography key={detailIndex} className="faq-text">
-          {detail}
-        </Typography>
-      ) : (
-        <Typography key={detailIndex} className="faq-text">
-          {detail.name && <div>{detail.name}</div>}
-          {detail.phone && (
-            <div>
-              Telefon:{" "}
-              <a href={`tel:${detail.phone}`}>{detail.phone}</a>
-            </div>
-          )}
-          {detail.email && <div>Email: {detail.email}</div>}
-          {detail.days && <div>{detail.days}</div>}
-          {detail.hours && <div>{detail.hours}</div>}
-        </Typography>
-      )
-    )
-  ) : (
-    <Typography className="faq-text">
-      {faq.details}
-    </Typography>
-  )}
-</AccordionDetails>
-
+              {Array.isArray(faq.details) ? (
+                faq.details.map((detail, detailIndex) =>
+                  typeof detail === "string" ? (
+                    <Typography key={detailIndex} className="faq-text">
+                      {detail}
+                    </Typography>
+                  ) : (
+                    <Typography key={detailIndex} className="faq-text">
+                      {detail.name && <div>{detail.name}</div>}
+                      {detail.phone && (
+                        <div>
+                          Telefon:{" "}
+                          <a href={`tel:${detail.phone}`}>{detail.phone}</a>
+                        </div>
+                      )}
+                      {detail.email && <div>Email: {detail.email}</div>}
+                      {detail.days && <div>{detail.days}</div>}
+                      {detail.hours && <div>{detail.hours}</div>}
+                    </Typography>
+                  )
+                )
+              ) : (
+                <Typography className="faq-text">{faq.details}</Typography>
+              )}
+            </AccordionDetails>
           </Accordion>
         ))}
       </Container>

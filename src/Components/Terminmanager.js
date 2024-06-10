@@ -179,11 +179,7 @@ const Terminmanager = () => {
                       >
                         Zurücksetzen
                       </Button>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                      >
+                      <Button type="submit" variant="contained" color="primary">
                         Ereignis hinzufügen
                       </Button>
                     </Box>
@@ -248,7 +244,7 @@ const Terminmanager = () => {
           </Button>
           <Button
             onClick={() => handleDelete(selectedEvent)}
-            sx={{ color: 'red' }}
+            sx={{ color: "red" }}
             startIcon={<DeleteIcon />}
           >
             Löschen

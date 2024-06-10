@@ -3,15 +3,8 @@ import Layout from "./Layout";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import Masonry from "@mui/lab/Masonry";
-import { Container } from "@mui/material";
-import Modal from "@mui/material/Modal";
-import { useState } from "react";
-import CustomizedTimeline from "./TimelineComponent";
-
-const heights = [
-  150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80,
-];
+import { Container, Card, CardContent, Typography } from "@mui/material";
+import { useState, useEffect, createContext, useContext } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -35,44 +28,59 @@ const style = {
   pb: 3,
 };
 
+const EventsContext = createContext();
+
 const Schedule = () => {
-  const [open, setOpen] = useState(false);
+  const [events, setEvents] = useState([]);
+  const role = "KVD";
 
-  const handleClick = () => {
-    handleOpen();
-  };
+  useEffect(() => {
+    const storedEvents = localStorage.getItem(`onboardingEvents_${role}`);
+    if (storedEvents) {
+      const parsedEvents = JSON.parse(storedEvents);
+      const sortedEvents = parsedEvents.sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      setEvents(sortedEvents);
+    } else {
+      setEvents([]);
+    }
+  }, []);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+  const calculateHeight = (index, totalEvents) => {
+    const totalHeight = 800; // Gesamtverfügbare Höhe in Pixel
+    const margin = 10; // Abstand zwischen den Karten in Pixel
+    return (totalHeight - (totalEvents - 1) * margin) / totalEvents; // Dynamische Höhe basierend auf der Anzahl der Ereignisse
   };
 
   return (
-    <Layout headerText={"Ablaufplan"}>
-      <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-        <Box>
-          <Masonry columns={4} spacing={2}>
-            {heights.map((height, index) => (
-              <Item key={index} sx={{ height }} onClick={handleClick}>
-                {index + 1}
-              </Item>
-            ))}
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="parent-modal-title"
-              aria-describedby="parent-modal-description"
-            >
-              <Box sx={{ ...style, width: 400 }}>
-                <CustomizedTimeline />
-              </Box>
-            </Modal>
-          </Masonry>
-        </Box>
-      </Container>
-    </Layout>
+    <EventsContext.Provider value={{ events, setEvents }}>
+      <Layout headerText={"Ablaufplan"}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+          <Box>
+            {events.map((event, index) => {
+              const height = calculateHeight(index, events.length);
+              return (
+                <Card
+                  key={index}
+                  style={{ marginBottom: "10px", height: `${height}px` }}
+                >
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {event.name}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      {new Date(event.date).toLocaleDateString("de-DE")}
+                    </Typography>
+                    <Typography variant="body2">{event.employee}</Typography>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </Box>
+        </Container>
+      </Layout>
+    </EventsContext.Provider>
   );
 };
 

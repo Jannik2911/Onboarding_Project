@@ -22,26 +22,22 @@ const CalendarContainer = styled("div")({
 
 function getEventDays(events) {
   let eventDays = [];
-  events.forEach(event => {
+  events.forEach((event) => {
     let current = dayjs(event.start);
     const end = dayjs(event.end);
-    while (current.isBefore(end) || current.isSame(end, 'day')) {
-      eventDays.push(current.format('YYYY-MM-DD'));
-      current = current.add(1, 'day');
+    while (current.isBefore(end) || current.isSame(end, "day")) {
+      eventDays.push(current.format("YYYY-MM-DD"));
+      current = current.add(1, "day");
     }
   });
   return eventDays;
 }
 
 function ServerDay(props) {
-  const {
-    eventDays = [],
-    day,
-    outsideCurrentMonth,
-    ...other
-  } = props;
+  const { eventDays = [], day, outsideCurrentMonth, ...other } = props;
 
-  const isSelected = !outsideCurrentMonth && eventDays.includes(day.format('YYYY-MM-DD'));
+  const isSelected =
+    !outsideCurrentMonth && eventDays.includes(day.format("YYYY-MM-DD"));
 
   return (
     <Badge
@@ -133,7 +129,7 @@ export default function DateCalendarServerRequest() {
           slots={{
             day: (props) => <ServerDay {...props} eventDays={eventDays} />,
           }}
-          firstDayOfWeek={1}
+          /*firstDayOfWeek={1}*/
         />
       </LocalizationProvider>
     </CalendarContainer>
