@@ -69,14 +69,14 @@ const ContactManagement = () => {
   const [filterDialogOpen, setFilterDialogOpen] = useState(false);
   const [filterField, setFilterField] = useState("lastName");
   const [filterTerm, setFilterTerm] = useState("");
-  const [allContacts, setAllContacts] = useState([]); // Store all contacts separately
+  const [allContacts, setAllContacts] = useState([]); 
 
   useEffect(() => {
     fetch("http://localhost:8000/names")
       .then((res) => res.json())
       .then((data) => {
         setContacts(data);
-        setAllContacts(data); // Initialize allContacts with the fetched data
+        setAllContacts(data);
         localStorage.setItem("contacts", JSON.stringify(data));
       })
       .catch((err) => {
@@ -112,7 +112,7 @@ const ContactManagement = () => {
 
   useEffect(() => {
     if (searchTerm === "") {
-      setContacts(allContacts); // Reset to all contacts if search term is cleared
+      setContacts(allContacts);
     } else {
       const filtered = allContacts.filter((element) => {
         return (
@@ -126,7 +126,7 @@ const ContactManagement = () => {
 
   useEffect(() => {
     if (filterTerm === "") {
-      setContacts(allContacts); // Reset to all contacts if filter term is cleared
+      setContacts(allContacts); 
     } else {
       const filtered = allContacts.filter((element) => {
         return element[filterField]
@@ -219,7 +219,7 @@ const ContactManagement = () => {
                       backgroundColor: snapshot.isDraggingOver
                         ? "#f0f0f0"
                         : "#fff",
-                      maxHeight: "85vh", // Adjust the height as needed
+                      maxHeight: "85vh",
                       overflow: "auto",
                     }}
                     {...provided.droppableProps}
@@ -227,7 +227,7 @@ const ContactManagement = () => {
                     <h2>Favorisierte Kontakte</h2>
                     {favorites.map((contact, index) => (
                       <Draggable
-                        key={`${contact.id}-favorites`} // Ensure unique key
+                        key={`${contact.id}-favorites`}
                         draggableId={`${contact.id}-favorites`}
                         index={index}
                       >
@@ -261,7 +261,7 @@ const ContactManagement = () => {
                       backgroundColor: snapshot.isDraggingOver
                         ? "#f0f0f0"
                         : "#fff",
-                      maxHeight: "85vh", // Adjust the height as needed
+                      maxHeight: "85vh",
                       overflow: "auto",
                     }}
                     {...provided.droppableProps}

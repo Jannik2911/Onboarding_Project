@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Routes } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Footer from "./Footer";
 
 const ForgotPassword = () => {

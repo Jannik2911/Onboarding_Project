@@ -8,11 +8,11 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 import { styled } from "@mui/material/styles";
 import { useState, useEffect, useRef } from "react";
-import "dayjs/locale/de"; // Import German locale
+import "dayjs/locale/de";
 
 const CalendarContainer = styled("div")({
   width: "100%",
-  maxWidth: "800px", // Adjust this to control maximum width
+  maxWidth: "800px",
   height: "auto",
   display: "flex",
   alignItems: "center",
@@ -54,12 +54,12 @@ function ServerDay(props) {
         outsideCurrentMonth={outsideCurrentMonth}
         day={day}
         sx={{
-          width: 37, // Set a fixed width to avoid distortion
-          height: 37, // Set a fixed height to maintain aspect ratio
+          width: 37,
+          height: 37,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "1.0rem", // Increase font size for day numbers
+          fontSize: "1.0rem",
         }}
       />
     </Badge>
@@ -101,31 +101,31 @@ export default function DateCalendarServerRequest() {
             width: "100%",
             height: "auto",
             ".MuiPickersCalendarHeader-root": {
-              width: "100%", // Ensure the header takes full width
+              width: "100%",
             },
             ".MuiDayCalendar-monthContainer": {
-              width: "100%", // Ensure the day container takes full width
+              width: "100%",
             },
             ".MuiPickersSlideTransition-root": {
-              width: "100%", // Ensure the slide transition takes full width
+              width: "100%",
             },
             ".MuiDayCalendar-weekContainer": {
-              width: "100%", // Ensure the week container takes full width
+              width: "100%",
               display: "flex",
-              justifyContent: "space-around", // Adjust spacing between days
+              justifyContent: "space-around",
             },
             ".MuiDayCalendar-weekContainer > div": {
-              flex: "1 1 0", // Ensure the days take equal space without distortion
+              flex: "1 1 0",
               display: "flex",
               justifyContent: "center",
             },
             ".MuiDayCalendar-header": {
-              width: "100%", // Ensure the weekday headers take full width
+              width: "100%",
               display: "flex",
               justifyContent: "space-around",
             },
             ".MuiDayCalendar-header > div": {
-              flex: "1 1 0", // Ensure the weekdays take equal space without distortion
+              flex: "1 1 0",
               textAlign: "center",
             },
           }}
@@ -133,7 +133,7 @@ export default function DateCalendarServerRequest() {
           slots={{
             day: (props) => <ServerDay {...props} eventDays={eventDays} />,
           }}
-          firstDayOfWeek={1} // Start week on Monday
+          firstDayOfWeek={1}
         />
       </LocalizationProvider>
     </CalendarContainer>
