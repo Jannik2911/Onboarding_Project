@@ -93,7 +93,7 @@ const UserChannel = ({ applicationChat = false }) => {
                 label={applicationChat ? "Personalbereich" : "Mitarbeiter"}
               >
                 {applicationChat ? (
-                  <MenuItem key={-1} value={"Personalbereich"}>
+                  <MenuItem key={999} value={"Personalbereich"}>
                     {"Personalbereich"}
                   </MenuItem>
                 ) : (
