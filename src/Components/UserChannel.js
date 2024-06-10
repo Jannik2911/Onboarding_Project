@@ -11,9 +11,9 @@ import {
   InputLabel,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import Message from "./Message"; // Import der aktualisierten Message-Komponente
+import Message from "./Message";
 
-const UserChannel = () => {
+const UserChannel = ({ applicationChat = false }) => {
   const [input, setInput] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [mitarbeiter, setMitarbeiter] = useState([]);
@@ -51,7 +51,7 @@ const UserChannel = () => {
         id: Date.now(),
         text: input,
         sender: "user",
-        timestamp: Date.now(), // Hinzufügen des Zeitstempels
+        timestamp: Date.now(),
       };
       setMessages((prevMessages) => {
         const employeeMessages = prevMessages[selectedEmployee.id] || [];
@@ -88,13 +88,19 @@ const UserChannel = () => {
               <Select
                 value={selectedEmployee}
                 onChange={handleEmployeeChange}
-                label="Mitarbeiter"
+                label={applicationChat ? "Personalabteilung" : "Mitarbeiter"}
               >
-                {mitarbeiter.map((employee) => (
-                  <MenuItem key={employee.id} value={employee}>
-                    {`${employee.firstName} ${employee.lastName}`}
+                {applicationChat ? (
+                  <MenuItem key={100} value={0}>
+                    {"Personalabteilung"}
                   </MenuItem>
-                ))}
+                ) : (
+                  mitarbeiter.map((employee) => (
+                    <MenuItem key={employee.id} value={employee}>
+                      {`${employee.firstName} ${employee.lastName}`}
+                    </MenuItem>
+                  ))
+                )}
               </Select>
             </FormControl>
           </Grid>

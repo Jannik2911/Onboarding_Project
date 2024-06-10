@@ -15,6 +15,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import UserChannel from "./UserChannel";
 
 const steps = [
   "Bewerbung eingereicht",
@@ -76,24 +77,7 @@ const Application = ({ activeStep = 2 }) => {
               <Typography variant="h5" gutterBottom>
                 Direktnachricht
               </Typography>
-              <form onSubmit={handleContactSubmit}>
-                <TextField
-                  fullWidth
-                  required
-                  label="Ihre Nachricht"
-                  margin="normal"
-                  multiline
-                  rows={4}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  sx={{ mt: 2 }}
-                >
-                  Absenden
-                </Button>
-              </form>
+              <UserChannel applicationChat={true} />
             </Box>
           </Box>
         </Paper>
