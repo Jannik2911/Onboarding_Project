@@ -11,38 +11,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function CheckList() {
   const [checked, setChecked] = React.useState([0]);
-  const [hoveredItem, setHoveredItem] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
-  useEffect(() => {
-    // Speichern der Aufgaben im localStorage, wenn sich die Tasks ändern
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
   return (
     <List sx={{ width: "inherit", height: 250, bgcolor: "background.paper" }}>
       {tasks.map(
         (task, index) =>
           !task.completed &&
-          !task.mitarbeiter && (
+          task.mitarbeiter.length === 0 && (
             <ListItem
               key={index}
               sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
