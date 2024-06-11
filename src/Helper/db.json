@@ -2,19 +2,19 @@
   "users": [
     {"id": 0, "name": "Tester", "password": "test", "admin": false, "plan": "KVD"},
     {"id": 1, "name": "Admin", "password": "test", "admin": true, "plan": "KVD"},
-    {"id": 2, "name": "Bewerber", "password": "test", "admin": true, "plan": "KVD"}
+    {"id": 2, "name": "Bewerber", "password": "test", "admin": false, "plan": "KVD"}
   ],
   "names": [
-{ "id": 1, "firstName": "Hans", "lastName": "Meier", "phone": "030-1234567", "department": "Personal" },
-{ "id": 2, "firstName": "Claudia", "lastName": "Schmidt", "phone": "030-2345678", "department": "Marketing" },
-{ "id": 3, "firstName": "Peter", "lastName": "Müller", "phone": "030-3456789", "department": "Finanzen" },
-{ "id": 4, "firstName": "Julia", "lastName": "Schneider", "phone": "030-4567890", "department": "IT" },
-{ "id": 5, "firstName": "Michael", "lastName": "Fischer", "phone": "030-5678901", "department": "Kundenservice" },
-{ "id": 6, "firstName": "Sabine", "lastName": "Weber", "phone": "030-6789012", "department": "Vertrieb" },
-{ "id": 7, "firstName": "Thomas", "lastName": "Bauer", "phone": "030-7890123", "department": "Betrieb" },
-{ "id": 8, "firstName": "Anna", "lastName": "Richter", "phone": "030-8901234", "department": "Personal" },
-{ "id": 9, "firstName": "Johannes", "lastName": "Wolf", "phone": "030-9012345", "department": "Marketing" },
-{ "id": 10, "firstName": "Sophie", "lastName": "Koch", "phone": "030-0123456", "department": "Finanzen" }
+{ "id": 0, "firstName": "Hans", "lastName": "Meier", "phone": "030-1234567", "department": "Personal" },
+{ "id": 1, "firstName": "Claudia", "lastName": "Schmidt", "phone": "030-2345678", "department": "Marketing" },
+{ "id": 2, "firstName": "Peter", "lastName": "Müller", "phone": "030-3456789", "department": "Finanzen" },
+{ "id": 3, "firstName": "Julia", "lastName": "Schneider", "phone": "030-4567890", "department": "IT" },
+{ "id": 4, "firstName": "Michael", "lastName": "Fischer", "phone": "030-5678901", "department": "Kundenservice" },
+{ "id": 5, "firstName": "Sabine", "lastName": "Weber", "phone": "030-6789012", "department": "Vertrieb" },
+{ "id": 6, "firstName": "Thomas", "lastName": "Bauer", "phone": "030-7890123", "department": "Betrieb" },
+{ "id": 7, "firstName": "Anna", "lastName": "Richter", "phone": "030-8901234", "department": "Personal" },
+{ "id": 8, "firstName": "Johannes", "lastName": "Wolf", "phone": "030-9012345", "department": "Marketing" },
+{ "id": 9, "firstName": "Sophie", "lastName": "Koch", "phone": "030-0123456", "department": "Finanzen" }
 
   ],
   "notifications": [

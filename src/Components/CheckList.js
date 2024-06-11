@@ -1,8 +1,7 @@
-import * as React from "react";
+import React, { useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { useState } from "react";
 
 export default function CheckList() {
   const [tasks, setTasks] = useState(() => {
@@ -18,8 +17,10 @@ export default function CheckList() {
           task.mitarbeiter.length === 0 && (
             <ListItem
               key={index}
-              sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
-              style={{
+              sx={{
+                border: "1px solid grey",
+                borderRadius: 2,
+                mb: 1,
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
               }}
             >
@@ -36,10 +37,13 @@ export default function CheckList() {
                 secondary={
                   task.completed ? (
                     `Aufgabe erledigt am ${task.completedAt}`
-                  ) : /*new Date() < new Date(task.f)*/ true ? (
-                    `Zu erledigen bis zum ${task.f}`
                   ) : (
-                    <span style={{ color: "red" }}>
+                    <span
+                      style={{
+                        color:
+                          new Date() < new Date(task.f) ? "inherit" : "red",
+                      }}
+                    >
                       {`Zu erledigen bis zum ${task.f}`}
                     </span>
                   )

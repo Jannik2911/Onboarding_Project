@@ -127,7 +127,7 @@ export default function Mitarbeiterverwaltung() {
                 Mitarbeiterliste
               </Typography>
               <List>
-                {mitarbeiterListe.map((mitarbeiter) => (
+                {mitarbeiterListe.map((mitarbeiter, index) => (
                   <ListItem
                     key={mitarbeiter.id}
                     sx={{ border: "1px solid grey", borderRadius: 2, mb: 1 }}
@@ -138,7 +138,7 @@ export default function Mitarbeiterverwaltung() {
                       <IconButton
                         edge="end"
                         aria-label="delete"
-                        onClick={() => handleDelete(mitarbeiter.id)}
+                        onClick={() => handleDelete(index)}
                       >
                         <DeleteIcon />
                       </IconButton>

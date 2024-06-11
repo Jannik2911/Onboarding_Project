@@ -35,12 +35,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route exact path="/loggedout" element={<LoggedOut />} />
+          <Route exact path="/" element={<Login />} />
           {isApplication && (
             <Route exact path="/application" element={<Application />} />
           )}
           {!isApplication && (
             <>
-              <Route exact path="/" element={<Login />} />
               <Route exact path="/tasks" element={<Tasks />} />
               <Route exact path="/userchannel" element={<UserChannel />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
@@ -51,7 +52,7 @@ function App() {
               />
               <Route exact path="/terminmanager" element={<Terminmanager />} />
               <Route exact path="/info" element={<Info />} />
-              <Route exact path="/loggedout" element={<LoggedOut />} />
+
               <Route exact path="/ablaufplan" element={<Schedule />} />
               {isAdmin && (
                 <Route
